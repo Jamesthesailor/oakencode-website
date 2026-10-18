@@ -1,0 +1,96 @@
+:root {
+  --bg: #0a0e1a;
+  --bg2: #101828;
+  --gold: #d4af37;
+  --gold-dim: #9a7d24;
+  --text: #e8e6df;
+  --muted: #a8a49a;
+  --card: #131c2e;
+  --line: #2a3450;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  padding: 0 1.25rem 4rem;
+}
+.wrap { max-width: 960px; margin: 0 auto; }
+header.site {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand { color: var(--gold); font-weight: 700; font-size: 1.25rem; text-decoration: none; letter-spacing: .04em; }
+nav a { color: var(--muted); text-decoration: none; margin-left: 1.25rem; font-size: .95rem; }
+nav a:hover { color: var(--gold); }
+.hero { text-align: center; padding: 2.5rem 0 1rem; }
+.hero h1 { font-size: 2rem; color: var(--gold); margin-bottom: .75rem; line-height: 1.25; }
+.hero p { color: var(--muted); max-width: 620px; margin: 0 auto; }
+.grid {
+  display: grid; gap: 1.25rem; margin-top: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none; color: var(--text);
+  display: flex; flex-direction: column; gap: .6rem;
+  transition: border-color .15s;
+}
+.card:hover { border-color: var(--gold); }
+.card .icon { width: 64px; height: 64px; border-radius: 14px; }
+.card .mono {
+  width: 64px; height: 64px; border-radius: 14px;
+  background: #0d1424; border: 1px solid var(--gold-dim);
+  color: var(--gold); font-size: 1.75rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.card h2 { font-size: 1.15rem; }
+.card p { color: var(--muted); font-size: .95rem; flex: 1; }
+.badge {
+  display: inline-block; font-size: .75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .06em;
+  padding: .2rem .6rem; border-radius: 999px;
+  border: 1px solid var(--gold-dim); color: var(--gold);
+  align-self: flex-start;
+}
+.badge.testing { border-color: #4da3ff; color: #4da3ff; }
+.badge.dev { border-color: #b48cff; color: #b48cff; }
+.teaser {
+  margin-top: 3rem; padding: 1.5rem;
+  border: 1px dashed var(--line); border-radius: 12px;
+  color: var(--muted); font-size: .95rem;
+}
+.teaser strong { color: var(--gold); }
+.sub-hero { text-align: center; padding: 1.5rem 0 2rem; }
+.sub-hero img.icon-lg { width: 120px; height: 120px; border-radius: 26px; margin-bottom: 1rem; }
+.sub-hero img.banner { width: 100%; max-height: 280px; object-fit: cover; border-radius: 12px; margin-bottom: 1.25rem; }
+.sub-hero h1 { font-size: 1.9rem; margin-bottom: .5rem; }
+.sub-hero .tagline { color: var(--muted); font-size: 1.1rem; margin-bottom: .75rem; }
+section.block { margin: 2rem 0; }
+section.block h2 { color: var(--gold); font-size: 1.15rem; margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .05em; font-size: .95rem; }
+ul.feat { list-style: none; }
+ul.feat li { padding: .45rem 0 .45rem 1.5rem; position: relative; }
+ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute; left: 0; font-size: .8rem; }
+.privacy {
+  background: var(--bg2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 2.5rem;
+  color: var(--muted); font-size: .95rem;
+}
+.privacy strong { color: var(--gold); }
+.cta { margin-top: 2rem; text-align: center; }
+.btn {
+  display: inline-block; background: var(--gold); color: #0a0e1a;
+  font-weight: 700; padding: .8rem 1.75rem; border-radius: 999px;
+  text-decoration: none;
+}
+.btn:hover { filter: brightness(1.1); }
+.back { display: inline-block; margin-top: 2.5rem; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--gold); }
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
+footer a { color: var(--gold); }

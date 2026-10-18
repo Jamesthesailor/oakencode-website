@@ -1,0 +1,474 @@
+#!/usr/bin/env python3
+"""Build the Oakencode /apps/ static section from approved copy.
+Run: python3 build.py   -> outputs into ./site/
+"""
+import os, shutil
+
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site")
+ASSETS_SRC = {
+    "/home/hatch/workspace/pers-int-icons/playstore.png": "assets/img/pers-int-icon.png",
+    "/home/hatch/workspace/plant-care-assets/plant-care-icon-512.png": "assets/img/plant-care-icon.png",
+    "/home/hatch/workspace/plant-care-assets/plant-care-feature-graphic-1024x500.png": "assets/img/plant-care-feature-graphic.png",
+    "/home/hatch/workspace/plant-care-assets/plant-care-hero.png": "assets/img/plant-care-hero.png",
+}
+
+CSS = """\
+:root {
+  --bg: #0a0e1a;
+  --bg2: #101828;
+  --gold: #d4af37;
+  --gold-dim: #9a7d24;
+  --text: #e8e6df;
+  --muted: #a8a49a;
+  --card: #131c2e;
+  --line: #2a3450;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  padding: 0 1.25rem 4rem;
+}
+.wrap { max-width: 960px; margin: 0 auto; }
+header.site {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand { color: var(--gold); font-weight: 700; font-size: 1.25rem; text-decoration: none; letter-spacing: .04em; }
+nav a { color: var(--muted); text-decoration: none; margin-left: 1.25rem; font-size: .95rem; }
+nav a:hover { color: var(--gold); }
+.hero { text-align: center; padding: 2.5rem 0 1rem; }
+.hero h1 { font-size: 2rem; color: var(--gold); margin-bottom: .75rem; line-height: 1.25; }
+.hero p { color: var(--muted); max-width: 620px; margin: 0 auto; }
+.grid {
+  display: grid; gap: 1.25rem; margin-top: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none; color: var(--text);
+  display: flex; flex-direction: column; gap: .6rem;
+  transition: border-color .15s;
+}
+.card:hover { border-color: var(--gold); }
+.card .icon { width: 64px; height: 64px; border-radius: 14px; }
+.card .mono {
+  width: 64px; height: 64px; border-radius: 14px;
+  background: #0d1424; border: 1px solid var(--gold-dim);
+  color: var(--gold); font-size: 1.75rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.card h2 { font-size: 1.15rem; }
+.card p { color: var(--muted); font-size: .95rem; flex: 1; }
+.badge {
+  display: inline-block; font-size: .75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .06em;
+  padding: .2rem .6rem; border-radius: 999px;
+  border: 1px solid var(--gold-dim); color: var(--gold);
+  align-self: flex-start;
+}
+.badge.testing { border-color: #4da3ff; color: #4da3ff; }
+.badge.dev { border-color: #b48cff; color: #b48cff; }
+.teaser {
+  margin-top: 3rem; padding: 1.5rem;
+  border: 1px dashed var(--line); border-radius: 12px;
+  color: var(--muted); font-size: .95rem;
+}
+.teaser strong { color: var(--gold); }
+.sub-hero { text-align: center; padding: 1.5rem 0 2rem; }
+.sub-hero img.icon-lg { width: 120px; height: 120px; border-radius: 26px; margin-bottom: 1rem; }
+.sub-hero img.banner { width: 100%; max-height: 280px; object-fit: cover; border-radius: 12px; margin-bottom: 1.25rem; }
+.sub-hero h1 { font-size: 1.9rem; margin-bottom: .5rem; }
+.sub-hero .tagline { color: var(--muted); font-size: 1.1rem; margin-bottom: .75rem; }
+section.block { margin: 2rem 0; }
+section.block h2 { color: var(--gold); font-size: 1.15rem; margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .05em; font-size: .95rem; }
+ul.feat { list-style: none; }
+ul.feat li { padding: .45rem 0 .45rem 1.5rem; position: relative; }
+ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute; left: 0; font-size: .8rem; }
+.privacy {
+  background: var(--bg2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 2.5rem;
+  color: var(--muted); font-size: .95rem;
+}
+.privacy strong { color: var(--gold); }
+.cta { margin-top: 2rem; text-align: center; }
+.btn {
+  display: inline-block; background: var(--gold); color: #0a0e1a;
+  font-weight: 700; padding: .8rem 1.75rem; border-radius: 999px;
+  text-decoration: none;
+}
+.btn:hover { filter: brightness(1.1); }
+.back { display: inline-block; margin-top: 2.5rem; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--gold); }
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
+footer a { color: var(--gold); }
+"""
+
+APPS = [
+    dict(slug="pers-int", name="Pers-int", status="In closed testing", badge="testing",
+         tag="Your personal intelligence app — see what the internet knows about you.",
+         icon="pers-int-icon.png", mono=None, hero_img=None,
+         desc="Your personal intelligence app — see what the internet knows about you.",
+         feats=[
+             "Photo EXIF check: find hidden GPS location data before you share",
+             "Username search across 1,000+ sites",
+             "Email and password breach checks",
+             "Family dossier — findings for the people you care about, stored only on your phone",
+         ],
+         pricing=None,
+         cta=("Become a tester", "https://play.google.com/apps/testing/com.persint.app")),
+    dict(slug="plant-care", name="Plant Care", status="In development", badge="dev",
+         tag="Your plants, on a schedule.",
+         icon="plant-care-icon.png", mono=None, hero_img="plant-care-feature-graphic.png",
+         desc="Plant Care is your pocket plant keeper — for people who love plants but forget to water them.",
+         feats=[
+             "Water & feed reminders at 9am; due and overdue at a glance",
+             "Photo timeline per plant; care history logged automatically",
+             "15 common-plant templates — Snake Plant, Pothos, Monstera, Basil, Tomato, Strawberry, and more",
+             "Backup, export, import — your data is yours",
+         ],
+         pricing="Free for up to 5 plants. One-time $4.99 Pro unlock for unlimited plants.",
+         cta=None),
+    dict(slug="pet-health-vault", name="Pet Health Vault", status="Planned", badge="",
+         tag="Your pet's health history, offline and in your pocket.",
+         icon=None, mono="P", hero_img=None,
+         desc="Your pet's health history, offline and in your pocket.",
+         feats=[
+             "Vaccination, vet visit, and medication records per pet",
+             "Reminders for shots and meds",
+             "Photo timeline per pet",
+             "Exportable records for the vet",
+         ],
+         pricing=None, cta=None),
+    dict(slug="private-diary", name="Private Diary", status="Planned", badge="",
+         tag="An encrypted journal only you can open.",
+         icon=None, mono="D", hero_img=None,
+         desc="An encrypted journal only you can open.",
+         feats=[
+             "Biometric/PIN lock, encrypted on-device storage",
+             "No account, no cloud, no sync servers",
+             "Search your own entries",
+             "Export when you want out",
+         ],
+         pricing=None, cta=None),
+    dict(slug="budget-tracker", name="Budget Tracker", status="Planned", badge="",
+         tag="Manual money tracking, offline. Your money, your phone.",
+         icon=None, mono="B", hero_img=None,
+         desc="Manual money tracking, offline. Your money, your phone.",
+         feats=[
+             "Envelopes and categories you define — no bank linking, ever",
+             "Spending log with running totals",
+             "Simple charts of where it went",
+             "Export CSV",
+         ],
+         pricing=None, cta=None),
+    dict(slug="car-log", name="Car Log", status="Planned", badge="",
+         tag="Fuel, service, repairs — your car's whole history.",
+         icon=None, mono="C", hero_img=None,
+         desc="Fuel, service, repairs — your car's whole history.",
+         feats=[
+             "Fuel fill-ups with MPG tracking",
+             "Service and repair log with receipt photos",
+             "Reminders for oil, tires, inspections",
+             "Cost-per-mile over time",
+         ],
+         pricing=None, cta=None),
+    dict(slug="gym-tracker", name="Gym Tracker", status="Planned", badge="",
+         tag="Log workouts offline. No account, no cloud.",
+         icon=None, mono="G", hero_img=None,
+         desc="Log workouts offline. No account, no cloud.",
+         feats=[
+             "Routines, sets, reps, weights",
+             "Progress graphs that don't hide behind a paywall",
+             "Rest timer",
+             "Export your data",
+         ],
+         pricing=None, cta=None),
+    dict(slug="bill-splitter", name="Bill Splitter", status="Planned", badge="",
+         tag="Split bills with friends. No accounts, no fees.",
+         icon=None, mono="S", hero_img=None,
+         desc="Split bills with friends. No accounts, no fees.",
+         feats=[
+             "Split evenly, by shares, or by item",
+             "Running balances per group",
+             "Settle-up tracking",
+             "Works fully offline — no sign-up for anyone",
+         ],
+         pricing=None, cta=None),
+    dict(slug="baby-log", name="Baby Log", status="Planned", badge="",
+         tag="Feeds, sleep, diapers, milestones — for tired parents, offline.",
+         icon=None, mono="B", hero_img=None,
+         desc="Feeds, sleep, diapers, milestones — for tired parents, offline.",
+         feats=[
+             "One-tap logging for feeds, sleep, diapers",
+             "Growth and milestone tracking",
+             "Patterns over days and weeks",
+             "Private — no cloud nursery",
+         ],
+         pricing=None, cta=None),
+    dict(slug="collection-vault", name="Collection Vault", status="Planned", badge="",
+         tag="Catalog any collection. Barcode, photo, inventory — offline.",
+         icon=None, mono="C", hero_img=None,
+         desc="Catalog any collection. Barcode, photo, inventory — offline.",
+         feats=[
+             "Barcode scan plus photo per item",
+             "Custom fields per collection type",
+             "Value tracking",
+             "Exportable inventory",
+         ],
+         pricing=None, cta=None),
+]
+
+TEASER = ("an all-in-one kitchen companion, a document vault, a receipt "
+         "vault, a voice recorder, a PDF toolkit, a photo gallery done right, and a video "
+         "compressor. Details when they're real — we don't announce vapor.")
+
+# ---------------------------------------------------------------- homepage
+PROJECTS = [
+    dict(name="Pers-int", status="In closed testing", badge="testing",
+         desc="Your personal intel app. Scan usernames across 1,000+ sites, check emails against breach databases, and find GPS data hiding in your photos. Family safety, done right.",
+         link="/apps/pers-int/"),
+    dict(name="Sovereign", status="In development", badge="dev",
+         desc="An agentic investigation platform — the next evolution of field-ready OSINT tooling. Built phone-first, for professionals who work where the case takes them.",
+         link=None),
+    dict(name="HUMANITIES", status="In development", badge="dev",
+         desc="Our persona engine — the durable foundation behind everything we build. One engine, many products. The Unreal Engine of virtual personalities.",
+         link=None),
+    dict(name="Kindred", status="On the roadmap", badge="",
+         desc="Companionship, done honestly. A warm, present conversational partner built on the HUMANITIES engine.",
+         link=None),
+    dict(name="Nocturne", status="On the roadmap", badge="",
+         desc="For adults who want unfiltered conversation. Same engine, no guardrails beyond the law.",
+         link=None),
+    dict(name="Ogma-TUI", status="On the roadmap", badge="",
+         desc="Mobile-first, person-focused OSINT in the terminal. For investigators who live on their phones.",
+         link=None),
+]
+
+BELIEFS = [
+    "No ads, ever",
+    "No tracking",
+    "Your data stays yours",
+    "Pay for software, not with yourself",
+]
+
+def homepage():
+    cards = []
+    for p in PROJECTS:
+        badge = f'<span class="badge {p["badge"]}">{p["status"]}</span>' if p["badge"] else f'<span class="badge">{p["status"]}</span>'
+        inner = f"<h2>{p['name']}</h2>{badge}<p>{p['desc']}</p>"
+        if p["link"]:
+            cards.append(f'<a class="card" href="{p["link"]}">{inner}</a>')
+        else:
+            cards.append(f'<div class="card">{inner}</div>')
+    cards.append(
+        '<a class="card" href="/apps/">'
+        '<h2>Oakencode Apps</h2><span class="badge dev">Growing</span>'
+        "<p>Offline-first tools for everyday life — plant care, pets, budgets, and more. "
+        "No ads, no tracking, no accounts.</p></a>"
+    )
+    beliefs = "".join(f"<li>{b}</li>" for b in BELIEFS)
+    return f"""\
+<div class="hero">
+  <img class="icon-lg" src="/assets/img/oakencode-seal.jpg" alt="Oakencode seal" style="width:160px;height:160px;border-radius:50%;">
+  <h1>Honest software, built by a normal man, for normal people.</h1>
+  <p>No ads. No tracking. No dark patterns. Just tools that do what they say.</p>
+  <div class="cta"><a class="btn" href="#projects">See what we're building</a></div>
+</div>
+<section class="block" id="projects">
+  <h2>Projects</h2>
+  <div class="grid">
+  {''.join(cards)}
+  </div>
+</section>
+<section class="block">
+  <h2>What we believe</h2>
+  <p>Most software today treats you as the product. We don't. Oakencode builds tools the way a craftsman builds furniture — to last, to serve, and to respect the person using it.</p>
+  <ul class="feat" style="margin-top:1rem;">{beliefs}</ul>
+</section>
+<section class="block">
+  <h2>Get in touch</h2>
+  <p>Questions, feedback, or just want to talk shop? We read everything.<br>
+  <a href="mailto:contact@oakencode.com" style="color:var(--gold);">contact@oakencode.com</a></p>
+</section>
+"""
+
+PRIVACY_HTML = """\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pers-Int Privacy Policy</title>
+<style>
+body { font-family: -apple-system, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #222; }
+h1 { font-size: 1.8em; }
+h2 { margin-top: 1.5em; font-size: 1.2em; }
+.updated { color: #666; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<h1>Pers-Int Privacy Policy</h1>
+<p class="updated">Last updated: October 2026</p>
+
+<p>We collect almost nothing. Here's exactly what happens with your data:</p>
+
+<h2>Your dossiers stay on your device</h2>
+<p>Names, emails, usernames, search results — all stored locally in the app on your phone. We never see them, never store them on our servers, never transmit them anywhere.</p>
+
+<h2>Search queries</h2>
+<p>When you run a username or email check, your device contacts public websites directly. We do not route these queries through our servers and we do not log them.</p>
+
+<h2>Tokens</h2>
+<p>Token purchases are handled by Google Play Billing. We don't see or store your payment information.</p>
+
+<h2>No tracking</h2>
+<p>No analytics SDKs. No advertising SDKs. No crash reporting that includes personal data. No ads of any kind — ever.</p>
+
+<h2>What we cannot do</h2>
+<p>We cannot share what we do not have. We cannot sell what we never collect. We cannot leak what never leaves your phone.</p>
+
+<h2>Data deletion</h2>
+<p>Since all your data is stored only on your device, you can delete it at any time by clearing the app's data or uninstalling the app. There is nothing on our servers to delete because we never receive your data.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy: contact us through the app's About section.</p>
+</body>
+</html>
+"""
+
+PRIVACY = "<strong>Privacy first.</strong> No ads, ever. No tracking. No account. Everything stays on your phone."
+
+HEADER = """\
+<header class="site">
+  <a class="brand" href="https://oakencode.com">Oakencode</a>
+  <nav><a href="https://oakencode.com">Home</a><a href="/apps/">Apps</a><a href="mailto:contact@oakencode.com">Contact</a></nav>
+</header>"""
+
+FOOTER = """\
+<footer>
+  Oakencode — honest software, built by a normal man, for normal people.<br>
+  <a href="mailto:contact@oakencode.com">contact@oakencode.com</a>
+</footer>"""
+
+def page(title, body):
+    return f"""\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} — Oakencode</title>
+<link rel="stylesheet" href="/apps/assets/css/style.css">
+</head>
+<body>
+<div class="wrap">
+{HEADER}
+{body}
+{FOOTER}
+</div>
+</body>
+</html>
+"""
+
+def icon_html(app, cls):
+    if app["icon"]:
+        return f'<img class="{cls}" src="/apps/assets/img/{app["icon"]}" alt="{app["name"]} icon">'
+    return f'<div class="{cls} mono">{app["mono"]}</div>'
+
+def build():
+    if os.path.exists(OUT):
+        shutil.rmtree(OUT)
+    os.makedirs(os.path.join(OUT, "apps", "assets", "css"))
+    os.makedirs(os.path.join(OUT, "apps", "assets", "img"))
+    os.makedirs(os.path.join(OUT, "assets", "img"))
+    with open(os.path.join(OUT, "apps", "assets", "css", "style.css"), "w") as f:
+        f.write(CSS)
+    for src, dst in ASSETS_SRC.items():
+        shutil.copy(src, os.path.join(OUT, "apps", dst))
+    # Seal for the homepage (also kept at the old root URL for compatibility)
+    _here = os.path.dirname(os.path.abspath(__file__))
+    shutil.copy(os.path.join(_here, "assets-src", "oakencode-seal.jpg"),
+                os.path.join(OUT, "assets", "img", "oakencode-seal.jpg"))
+    shutil.copy(os.path.join(OUT, "assets", "img", "oakencode-seal.jpg"),
+                os.path.join(OUT, "oakencode-seal.jpg"))
+
+    # Homepage (recreated from the live site, Pers-int status updated)
+    with open(os.path.join(OUT, "index.html"), "w") as f:
+        f.write(page("Oakencode — Honest Software", homepage()))
+
+    # Privacy policy (kept byte-identical to the approved page)
+    os.makedirs(os.path.join(OUT, "pers-int-privacy"))
+    with open(os.path.join(OUT, "pers-int-privacy", "index.html"), "w") as f:
+        f.write(PRIVACY_HTML)
+
+    # Apps index
+    cards = []
+    for a in APPS:
+        badge = f'<span class="badge {a["badge"]}">{a["status"]}</span>' if a["badge"] else f'<span class="badge">{a["status"]}</span>'
+        cards.append(
+            f'<a class="card" href="/apps/{a["slug"]}/">'
+            f'{icon_html(a, "icon")}'
+            f"<h2>{a['name']}</h2>{badge}<p>{a['tag']}</p></a>"
+        )
+    index_body = f"""\
+<div class="hero">
+  <h1>Built by a normal man, for normal people.</h1>
+  <p>Every Oakencode app is offline-first, ad-free, and private by design.
+  No accounts. No tracking. Your data never leaves your phone.</p>
+</div>
+<div class="grid">
+{''.join(cards)}
+</div>
+<div class="teaser"><strong>On the workbench:</strong> {TEASER}</div>
+"""
+    with open(os.path.join(OUT, "apps", "index.html"), "w") as f:
+        f.write(page("Apps", index_body))
+
+    # Subpages
+    for a in APPS:
+        badge = f'<span class="badge {a["badge"]}">{a["status"]}</span>' if a["badge"] else f'<span class="badge">{a["status"]}</span>'
+        hero = ""
+        if a["hero_img"]:
+            hero += f'<img class="banner" src="/apps/assets/img/{a["hero_img"]}" alt="{a["name"]} art">'
+        if a["icon"]:
+            hero += f'<img class="icon-lg" src="/apps/assets/img/{a["icon"]}" alt="{a["name"]} icon">'
+        else:
+            hero += f'<div class="icon-lg mono" style="width:120px;height:120px;border-radius:26px;font-size:3rem;margin:0 auto 1rem;">{a["mono"]}</div>'
+        feats = "".join(f"<li>{x}</li>" for x in a["feats"])
+        pricing = f'<section class="block"><h2>Pricing</h2><p>{a["pricing"]}</p></section>' if a["pricing"] else ""
+        cta = f'<div class="cta"><a class="btn" href="{a["cta"][1]}">{a["cta"][0]}</a></div>' if a["cta"] else ""
+        body = f"""\
+<div class="sub-hero">
+  {hero}
+  <h1>{a['name']}</h1>
+  {badge}
+  <p class="tagline">{a['tag']}</p>
+</div>
+<section class="block">
+  <p>{a['desc']}</p>
+</section>
+<section class="block">
+  <h2>Features</h2>
+  <ul class="feat">{feats}</ul>
+</section>
+{pricing}
+<div class="privacy">{PRIVACY}</div>
+{cta}
+<a class="back" href="/apps/">← All apps</a>
+"""
+        d = os.path.join(OUT, "apps", a["slug"])
+        os.makedirs(d)
+        with open(os.path.join(d, "index.html"), "w") as f:
+            f.write(page(a["name"], body))
+    print(f"Built {len(APPS)} subpages + index into {OUT}")
+
+if __name__ == "__main__":
+    build()
