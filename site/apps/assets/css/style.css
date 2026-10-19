@@ -77,6 +77,16 @@ section.block h2 { color: var(--gold); font-size: 1.15rem; margin-bottom: .75rem
 ul.feat { list-style: none; }
 ul.feat li { padding: .45rem 0 .45rem 1.5rem; position: relative; }
 ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute; left: 0; font-size: .8rem; }
+.shots {
+  display: grid; gap: 1.25rem; margin-top: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.shots figure { margin: 0; text-align: center; }
+.shots img {
+  width: 100%; border-radius: 12px; border: 1px solid var(--line);
+  display: block;
+}
+.shots figcaption { color: var(--muted); font-size: .9rem; margin-top: .5rem; }
 .privacy {
   background: var(--bg2); border: 1px solid var(--line);
   border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 2.5rem;

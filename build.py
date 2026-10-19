@@ -10,6 +10,12 @@ ASSETS_SRC = {
     "/home/hatch/workspace/plant-care-assets/plant-care-icon-512.png": "assets/img/plant-care-icon.png",
     "/home/hatch/workspace/plant-care-assets/plant-care-feature-graphic-1024x500.png": "assets/img/plant-care-feature-graphic.png",
     "/home/hatch/workspace/plant-care-assets/plant-care-hero.png": "assets/img/plant-care-hero.png",
+    "/home/hatch/workspace/plant-care-assets/screenshots-final/01-plant-list.png": "assets/img/plant-care-shot-list.png",
+    "/home/hatch/workspace/plant-care-assets/screenshots-final/02-plant-detail.png": "assets/img/plant-care-shot-detail.png",
+    "/home/hatch/workspace/plant-care-assets/screenshots-final/03-template-picker.png": "assets/img/plant-care-shot-picker.png",
+    "/home/hatch/workspace/plant-care-assets/screenshots-final/04-add-plant.png": "assets/img/plant-care-shot-add.png",
+    "/home/hatch/workspace/plant-care-assets/screenshots-final/05-settings.png": "assets/img/plant-care-shot-settings.png",
+    "/home/hatch/workspace/plant-care-assets/screenshots-final/06-moxie-ad.png": "assets/img/plant-care-shot-moxie.png",
 }
 
 CSS = """\
@@ -92,6 +98,16 @@ section.block h2 { color: var(--gold); font-size: 1.15rem; margin-bottom: .75rem
 ul.feat { list-style: none; }
 ul.feat li { padding: .45rem 0 .45rem 1.5rem; position: relative; }
 ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute; left: 0; font-size: .8rem; }
+.shots {
+  display: grid; gap: 1.25rem; margin-top: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.shots figure { margin: 0; text-align: center; }
+.shots img {
+  width: 100%; border-radius: 12px; border: 1px solid var(--line);
+  display: block;
+}
+.shots figcaption { color: var(--muted); font-size: .9rem; margin-top: .5rem; }
 .privacy {
   background: var(--bg2); border: 1px solid var(--line);
   border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 2.5rem;
@@ -131,10 +147,18 @@ APPS = [
          feats=[
              "Water & feed reminders at 9am; due and overdue at a glance",
              "Photo timeline per plant; care history logged automatically",
-             "15 common-plant templates — Snake Plant, Pothos, Monstera, Basil, Tomato, Strawberry, and more",
+             "103 common-plant templates — Snake Plant, Pothos, Monstera, Basil, Tomato, Strawberry, and more",
              "Backup, export, import — your data is yours",
          ],
          pricing="Free for up to 5 plants. One-time $4.99 Pro unlock for unlimited plants.",
+         shots=[
+             ("plant-care-shot-list.png", "Your plants, on a schedule."),
+             ("plant-care-shot-detail.png", "Water, feed, done."),
+             ("plant-care-shot-picker.png", "103 common plants, preloaded."),
+             ("plant-care-shot-add.png", "Set up in seconds."),
+             ("plant-care-shot-settings.png", "Private by design."),
+             ("plant-care-shot-moxie.png", "Moxie presents Plant Care."),
+         ],
          cta=None),
     dict(slug="pet-health-vault", name="Pet Health Vault", status="Planned", badge="",
          tag="Your pet's health history, offline and in your pocket.",
@@ -445,6 +469,14 @@ def build():
         feats = "".join(f"<li>{x}</li>" for x in a["feats"])
         pricing = f'<section class="block"><h2>Pricing</h2><p>{a["pricing"]}</p></section>' if a["pricing"] else ""
         cta = f'<div class="cta"><a class="btn" href="{a["cta"][1]}">{a["cta"][0]}</a></div>' if a["cta"] else ""
+        shots = ""
+        if a.get("shots"):
+            figs = "".join(
+                f'<figure><img src="/apps/assets/img/{img}" alt="{cap}" loading="lazy">'
+                f"<figcaption>{cap}</figcaption></figure>"
+                for img, cap in a["shots"]
+            )
+            shots = f'<section class="block"><h2>Screenshots</h2><div class="shots">{figs}</div></section>'
         body = f"""\
 <div class="sub-hero">
   {hero}
@@ -459,6 +491,7 @@ def build():
   <h2>Features</h2>
   <ul class="feat">{feats}</ul>
 </section>
+{shots}
 {pricing}
 <div class="privacy">{PRIVACY}</div>
 {cta}
