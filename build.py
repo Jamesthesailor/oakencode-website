@@ -34,6 +34,7 @@ CSS = """\
   --line: #2a3450;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -134,11 +135,15 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
 .app-media { flex: 0 0 280px; }
 .app-media img { width: 100%; border-radius: 12px; border: 1px solid var(--line); display: block; }
 .app-body { flex: 1; }
+.app-body .icon { width: 96px; height: 96px; border-radius: 22px; display: block; margin-bottom: .5rem; }
 .app-body h2 { font-size: 1.5rem; margin: .5rem 0 .25rem; }
 .app-body .tagline { color: var(--muted); margin-bottom: .75rem; }
 .app-body .dl-note { color: var(--muted); font-size: .85rem; margin-top: .75rem; }
-.founder { display: flex; gap: 2rem; align-items: center; background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; margin-top: 3rem; }
-.founder img { width: 160px; border-radius: 12px; border: 1px solid var(--line); flex: 0 0 160px; }
+.founder { display: flex; gap: 2rem; align-items: flex-start; background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; margin-top: 3rem; }
+.founders-row { display: flex; gap: 1.25rem; flex: 0 0 auto; }
+.person { flex: 1 1 0; min-width: 0; text-align: center; }
+.person img { width: 100%; max-width: 180px; border-radius: 12px; border: 1px solid var(--line); display: block; margin: 0 auto; }
+.person h3 { margin: .7rem 0 .3rem; font-size: 1rem; color: var(--gold); }
 .strip { display: grid; gap: 1rem; margin-top: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 .strip .card { padding: 1rem; }
 .strip .card h2 { font-size: 1rem; }
@@ -382,10 +387,22 @@ def homepage():
       "/apps/assets/img/moxie-pet-presenter.png", "Moxie presenting Pet Health Vault")}
 </section>
 <section class="block founder">
-  <img src="/apps/assets/img/maestrr-founder.png" alt="James Bryant, founder of Oakencode">
+  <div class="founders-row">
+    <div class="person">
+      <img src="/apps/assets/img/maestrr-founder.png" alt="James Bryant, Founder of Oakencode">
+      <h3>James Bryant</h3>
+      <span class="badge">Founder</span>
+    </div>
+    <div class="person">
+      <img src="/apps/assets/img/moxie-hero.png" alt="Miss Moxie Linn, Cohort">
+      <h3>Miss Moxie Linn</h3>
+      <span class="badge">Cohort</span>
+    </div>
+  </div>
   <div>
     <h2>The man behind it</h2>
     <p>Oakencode is a one-man shop. James Bryant designs, builds, and ships every app himself — no teams, no investors, no ads department. Just a normal man making the tools he wanted for his own family, and sharing them with yours.</p>
+    <p>Miss Moxie Linn is his cohort — the collaborator behind the scenes and the one who keeps the whole pipeline moving. He builds the apps; she makes sure they ship.</p>
   </div>
 </section>
 <section class="block">
