@@ -102,5 +102,22 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
 .btn:hover { filter: brightness(1.1); }
 .back { display: inline-block; margin-top: 2.5rem; color: var(--muted); text-decoration: none; }
 .back:hover { color: var(--gold); }
+.hero .hero-model { width: 100%; max-width: 420px; border-radius: 16px; border: 1px solid var(--line); margin: 1.5rem auto; display: block; }
+.btn-ghost { background: transparent; color: var(--gold); border: 1px solid var(--gold-dim); margin-left: .75rem; }
+.app-section { display: flex; gap: 2rem; align-items: center; margin: 3rem 0; }
+.app-section.flip { flex-direction: row-reverse; }
+.app-media { flex: 0 0 280px; }
+.app-media img { width: 100%; border-radius: 12px; border: 1px solid var(--line); display: block; }
+.app-body { flex: 1; }
+.app-body h2 { font-size: 1.5rem; margin: .5rem 0 .25rem; }
+.app-body .tagline { color: var(--muted); margin-bottom: .75rem; }
+.app-body .dl-note { color: var(--muted); font-size: .85rem; margin-top: .75rem; }
+.founder { display: flex; gap: 2rem; align-items: center; background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; margin-top: 3rem; }
+.founder img { width: 160px; border-radius: 12px; border: 1px solid var(--line); flex: 0 0 160px; }
+.strip { display: grid; gap: 1rem; margin-top: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.strip .card { padding: 1rem; }
+.strip .card h2 { font-size: 1rem; }
+.strip .card p { font-size: .85rem; }
+@media (max-width: 720px) { .app-section, .app-section.flip, .founder { flex-direction: column; } .app-media { flex: none; max-width: 280px; } }
 footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
 footer a { color: var(--gold); }

@@ -16,6 +16,10 @@ ASSETS_SRC = {
     "/home/hatch/workspace/plant-care-assets/screenshots-final/04-add-plant.png": "assets/img/plant-care-shot-add.png",
     "/home/hatch/workspace/plant-care-assets/screenshots-final/05-settings.png": "assets/img/plant-care-shot-settings.png",
     "/home/hatch/workspace/plant-care-assets/screenshots-final/06-moxie-ad.png": "assets/img/plant-care-shot-moxie.png",
+    "/home/hatch/workspace/pet-health-vault-assets/pet-health-vault-icon-512.png": "assets/img/pet-health-vault-icon.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-pet-presenter.png": "assets/img/moxie-pet-presenter.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-hero.png": "assets/img/moxie-hero.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/maestrr-founder.png": "assets/img/maestrr-founder.png",
 }
 
 CSS = """\
@@ -123,9 +127,31 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
 .btn:hover { filter: brightness(1.1); }
 .back { display: inline-block; margin-top: 2.5rem; color: var(--muted); text-decoration: none; }
 .back:hover { color: var(--gold); }
+.hero .hero-model { width: 100%; max-width: 420px; border-radius: 16px; border: 1px solid var(--line); margin: 1.5rem auto; display: block; }
+.btn-ghost { background: transparent; color: var(--gold); border: 1px solid var(--gold-dim); margin-left: .75rem; }
+.app-section { display: flex; gap: 2rem; align-items: center; margin: 3rem 0; }
+.app-section.flip { flex-direction: row-reverse; }
+.app-media { flex: 0 0 280px; }
+.app-media img { width: 100%; border-radius: 12px; border: 1px solid var(--line); display: block; }
+.app-body { flex: 1; }
+.app-body h2 { font-size: 1.5rem; margin: .5rem 0 .25rem; }
+.app-body .tagline { color: var(--muted); margin-bottom: .75rem; }
+.app-body .dl-note { color: var(--muted); font-size: .85rem; margin-top: .75rem; }
+.founder { display: flex; gap: 2rem; align-items: center; background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; margin-top: 3rem; }
+.founder img { width: 160px; border-radius: 12px; border: 1px solid var(--line); flex: 0 0 160px; }
+.strip { display: grid; gap: 1rem; margin-top: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.strip .card { padding: 1rem; }
+.strip .card h2 { font-size: 1rem; }
+.strip .card p { font-size: .85rem; }
+@media (max-width: 720px) { .app-section, .app-section.flip, .founder { flex-direction: column; } .app-media { flex: none; max-width: 280px; } }
 footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
 footer a { color: var(--gold); }
 """
+
+PLANT_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/plant-care.apk"
+PET_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/pet-health-vault.apk"
+PERSINT_TESTER = "https://play.google.com/apps/testing/com.persint.app"
+PLAY_NOTE = "Google Play is still reviewing our developer access — download the app here today; the Play version is coming."
 
 APPS = [
     dict(slug="pers-int", name="Pers-int", status="In closed testing", badge="testing",
@@ -140,7 +166,7 @@ APPS = [
          ],
          pricing=None,
          cta=("Become a tester", "https://play.google.com/apps/testing/com.persint.app")),
-    dict(slug="plant-care", name="Plant Care", status="In development", badge="dev",
+    dict(slug="plant-care", name="Plant Care", status="Available now", badge="",
          tag="Your plants, on a schedule.",
          icon="plant-care-icon.png", mono=None, hero_img="plant-care-feature-graphic.png",
          desc="Plant Care is your pocket plant keeper — for people who love plants but forget to water them.",
@@ -159,18 +185,22 @@ APPS = [
              ("plant-care-shot-settings.png", "Private by design."),
              ("plant-care-shot-moxie.png", "Moxie presents Plant Care."),
          ],
-         cta=None),
-    dict(slug="pet-health-vault", name="Pet Health Vault", status="Planned", badge="",
-         tag="Your pet's health history, offline and in your pocket.",
-         icon=None, mono="P", hero_img=None,
-         desc="Your pet's health history, offline and in your pocket.",
+         cta=("Download APK", PLANT_APK),
+         note=PLAY_NOTE),
+    dict(slug="pet-health-vault", name="Pet Health Vault", status="Available now", badge="",
+         tag="Your pet's whole health story — scheduler, diary, logs, and vault. Offline, private, yours.",
+         icon="pet-health-vault-icon.png", mono="P", hero_img=None,
+         desc="Pet Health Vault keeps your pet's whole health story in one private place — and it never leaves your phone.",
          feats=[
-             "Vaccination, vet visit, and medication records per pet",
-             "Reminders for shots and meds",
-             "Photo timeline per pet",
-             "Exportable records for the vet",
+             "Reminders for vaccinations, vet visits, and meds — with a multi-pet calendar",
+             "Health diary, weight tracker with trend chart, and feed / water / walk logs",
+             "57 breed templates with sensible care guidance",
+             "Freedom Units by default (pounds, ounces, miles); metric optional",
+             "Documents vault, photo gallery, backup and export — your data never leaves your phone",
          ],
-         pricing=None, cta=None),
+         pricing="Free for up to 3 pets. One-time $4.99 Pro unlock in the Play version.",
+         cta=("Download APK", PET_APK),
+         note=PLAY_NOTE),
     dict(slug="private-diary", name="Private Diary", status="Planned", badge="",
          tag="An encrypted journal only you can open.",
          icon=None, mono="D", hero_img=None,
@@ -283,39 +313,91 @@ BELIEFS = [
     "Pay for software, not with yourself",
 ]
 
+def app_section(icon_src, name, badge_html, tagline, feats, pricing, cta_label, cta_url, note, presenter_src, presenter_alt, flip=False):
+    feats_html = "".join(f"<li>{x}</li>" for x in feats)
+    pricing_html = f"<p><strong>Pricing:</strong> {pricing}</p>" if pricing else ""
+    flip_cls = " flip" if flip else ""
+    return f"""\
+<section class="app-section{flip_cls}">
+  <div class="app-media"><img src="{presenter_src}" alt="{presenter_alt}" loading="lazy"></div>
+  <div class="app-body">
+    <img class="icon" src="{icon_src}" alt="{name} icon">
+    <h2>{name}</h2>
+    {badge_html}
+    <p class="tagline">{tagline}</p>
+    <ul class="feat">{feats_html}</ul>
+    {pricing_html}
+    <div class="cta" style="text-align:left;"><a class="btn" href="{cta_url}">{cta_label}</a></div>
+    <p class="dl-note">{note}</p>
+  </div>
+</section>"""
+
 def homepage():
-    cards = []
+    strip = []
     for p in PROJECTS:
+        if p["name"] == "Pers-int":
+            continue
         badge = f'<span class="badge {p["badge"]}">{p["status"]}</span>' if p["badge"] else f'<span class="badge">{p["status"]}</span>'
-        inner = f"<h2>{p['name']}</h2>{badge}<p>{p['desc']}</p>"
-        if p["link"]:
-            cards.append(f'<a class="card" href="{p["link"]}">{inner}</a>')
-        else:
-            cards.append(f'<div class="card">{inner}</div>')
-    cards.append(
-        '<a class="card" href="/apps/">'
-        '<h2>Oakencode Apps</h2><span class="badge dev">Growing</span>'
-        "<p>Offline-first tools for everyday life — plant care, pets, budgets, and more. "
-        "No ads, no tracking, no accounts.</p></a>"
+        strip.append(f'<div class="card"><h2>{p["name"]}</h2>{badge}<p>{p["desc"]}</p></div>')
+    strip.append(
+        '<a class="card" href="/apps/"><h2>More apps</h2><span class="badge dev">Growing</span>'
+        "<p>Diary, budget, car, gym, bills, baby, collections — offline-first tools on the workbench. See them all.</p></a>"
     )
     beliefs = "".join(f"<li>{b}</li>" for b in BELIEFS)
     return f"""\
 <div class="hero">
-  <img class="icon-lg" src="/assets/img/oakencode-seal.jpg" alt="Oakencode seal" style="width:160px;height:160px;border-radius:50%;">
+  <img src="/assets/img/oakencode-seal.jpg" alt="Oakencode seal" style="width:120px;height:120px;border-radius:50%;">
   <h1>Honest software, built by a normal man, for normal people.</h1>
-  <p>No ads. No tracking. No dark patterns. Just tools that do what they say.</p>
-  <div class="cta"><a class="btn" href="#projects">See what we're building</a></div>
+  <p>No ads. No tracking. No dark patterns. Just tools that do what they say — and two of them are ready to download right now.</p>
+  <img class="hero-model" src="/apps/assets/img/moxie-hero.png" alt="Moxie presenting Oakencode">
+  <div class="cta"><a class="btn" href="#apps">Get the apps</a> <a class="btn btn-ghost" href="{PERSINT_TESTER}">Become a Pers-int tester</a></div>
 </div>
-<section class="block" id="projects">
-  <h2>Projects</h2>
-  <div class="grid">
-  {''.join(cards)}
+<section class="block" id="apps">
+  <h2>Available now</h2>
+  {app_section("/apps/assets/img/pers-int-icon.png", "Pers-int", '<span class="badge testing">In closed testing</span>',
+      "Your personal intelligence app — see what the internet knows about you.",
+      ["Photo EXIF check: find hidden GPS location data before you share",
+       "Username search across 1,000+ sites",
+       "Email and password breach checks",
+       "Family dossier — findings for the people you care about, stored only on your phone"],
+      None, "Become a tester", PERSINT_TESTER,
+      "In closed testing on Google Play. Join with the Google account on your phone, then install from the Play Store.",
+      "/apps/assets/img/moxie-hero.png", "Moxie presenting Pers-int")}
+  {app_section("/apps/assets/img/plant-care-icon.png", "Plant Care", '<span class="badge">Available now</span>',
+      "Your plants, on a schedule.",
+      ["Water & feed reminders at 9am; due and overdue at a glance",
+       "Photo timeline per plant; care history logged automatically",
+       "103 common-plant templates — Snake Plant, Pothos, Monstera, Basil, Tomato, Strawberry, and more",
+       "Backup, export, import — your data is yours"],
+      "Free for up to 5 plants. One-time $4.99 Pro unlock in the Play version.", "Download APK", PLANT_APK, PLAY_NOTE,
+      "/apps/assets/img/plant-care-shot-moxie.png", "Moxie presenting Plant Care", flip=True)}
+  {app_section("/apps/assets/img/pet-health-vault-icon.png", "Pet Health Vault", '<span class="badge">Available now</span>',
+      "Your pet's whole health story — scheduler, diary, logs, and vault. Offline, private, yours.",
+      ["Reminders for vaccinations, vet visits, and meds — with a multi-pet calendar",
+       "Health diary, weight tracker with trend chart, and feed / water / walk logs",
+       "57 breed templates with sensible care guidance",
+       "Freedom Units by default (pounds, ounces, miles); metric optional",
+       "Documents vault, photo gallery, backup and export — your data never leaves your phone"],
+      "Free for up to 3 pets. One-time $4.99 Pro unlock in the Play version.", "Download APK", PET_APK, PLAY_NOTE,
+      "/apps/assets/img/moxie-pet-presenter.png", "Moxie presenting Pet Health Vault")}
+</section>
+<section class="block founder">
+  <img src="/apps/assets/img/maestrr-founder.png" alt="James Bryant, founder of Oakencode">
+  <div>
+    <h2>The man behind it</h2>
+    <p>Oakencode is a one-man shop. James Bryant designs, builds, and ships every app himself — no teams, no investors, no ads department. Just a normal man making the tools he wanted for his own family, and sharing them with yours.</p>
   </div>
 </section>
 <section class="block">
   <h2>What we believe</h2>
   <p>Most software today treats you as the product. We don't. Oakencode builds tools the way a craftsman builds furniture — to last, to serve, and to respect the person using it.</p>
   <ul class="feat" style="margin-top:1rem;">{beliefs}</ul>
+</section>
+<section class="block">
+  <h2>Also in the works</h2>
+  <div class="strip">
+  {''.join(strip)}
+  </div>
 </section>
 <section class="block">
   <h2>Get in touch</h2>
@@ -379,6 +461,7 @@ HEADER = """\
 FOOTER = """\
 <footer>
   Oakencode — honest software, built by a normal man, for normal people.<br>
+  Built in collaboration with Muse — Moxie Linn.<br>
   <a href="mailto:contact@oakencode.com">contact@oakencode.com</a>
 </footer>"""
 
@@ -468,6 +551,7 @@ def build():
             hero += f'<div class="icon-lg mono" style="width:120px;height:120px;border-radius:26px;font-size:3rem;margin:0 auto 1rem;">{a["mono"]}</div>'
         feats = "".join(f"<li>{x}</li>" for x in a["feats"])
         pricing = f'<section class="block"><h2>Pricing</h2><p>{a["pricing"]}</p></section>' if a["pricing"] else ""
+        dlnote = f'<p class="dl-note">{a["note"]}</p>' if a.get("note") else ""
         cta = f'<div class="cta"><a class="btn" href="{a["cta"][1]}">{a["cta"][0]}</a></div>' if a["cta"] else ""
         shots = ""
         if a.get("shots"):
@@ -493,6 +577,7 @@ def build():
 </section>
 {shots}
 {pricing}
+{dlnote}
 <div class="privacy">{PRIVACY}</div>
 {cta}
 <a class="back" href="/apps/">← All apps</a>
