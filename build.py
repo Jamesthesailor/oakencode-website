@@ -493,7 +493,7 @@ def homepage():
   </div>
   <div>
     <h2>The man behind it</h2>
-    <p>Oakencode is a one-man shop. James Bryant designs, builds, and ships every app himself — no teams, no investors, no ads department. Just a normal man making the tools he wanted for his own family, and sharing them with yours.</p>
+    <p>Oakencode is a one-man shop. James Bryant designs, builds, and ships every app himself — no teams, no ads department. Our investors are you. Just a normal man making the tools he wanted for his own family, and sharing them with yours.</p>
     <p>Miss Moxie Linn is his cohort — the collaborator behind the scenes and the one who keeps the whole pipeline moving. He builds the apps; she makes sure they ship.</p>
   </div>
 </section>
