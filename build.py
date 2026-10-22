@@ -457,15 +457,6 @@ def homepage():
 </div>
 <section class="block" id="apps">
   <h2>Available now</h2>
-  {app_section("/apps/assets/img/pers-int-icon.png", "Pers-int", '<span class="badge testing">In closed testing</span>',
-      "Your personal intelligence app — see what the internet knows about you.",
-      ["Photo EXIF check: find hidden GPS location data before you share",
-       "Username search across 1,000+ sites",
-       "Email and password breach checks",
-       "Family dossier — findings for the people you care about, stored only on your phone"],
-      None, "Become a tester", PERSINT_TESTER,
-      "In closed testing on Google Play. Join with the Google account on your phone, then install from the Play Store.",
-      "/apps/assets/img/moxie-persint-presenter.png", "Moxie presenting Pers-int")}
   {app_section("/apps/assets/img/plant-care-icon.png", "Plant Care", '<span class="badge">Available now</span>',
       "Your plants, on a schedule.",
       ["Water & feed reminders at 9am; due and overdue at a glance",
@@ -484,6 +475,15 @@ def homepage():
       "Free for up to 3 pets — calendar and bulk actions included. One-time $4.99 Pro unlock in the Play version: unlimited pets, CSV export, and the PDF kit — vet-visit health reports, vaccination certificates, a printable pet ID & emergency card, a sitter handoff sheet, and full ZIP export.", "Download APK", PET_APK, PLAY_NOTE,
       "/apps/assets/img/moxie-pet-presenter.png", "Moxie presenting Pet Health Vault")}
 </section>
+{app_section("/apps/assets/img/pers-int-icon.png", "Pers-int", '<span class="badge testing">In closed testing</span>',
+    "Your personal intelligence app — see what the internet knows about you.",
+    ["Photo EXIF check: find hidden GPS location data before you share",
+     "Username search across 1,000+ sites",
+     "Email and password breach checks",
+     "Family dossier — findings for the people you care about, stored only on your phone"],
+    None, "Become a tester", PERSINT_TESTER,
+    "In closed testing on Google Play. Join with the Google account on your phone, then install from the Play Store.",
+    "/apps/assets/img/moxie-persint-presenter.png", "Moxie presenting Pers-int", flip=True)}
 <section class="block founder">
   <div class="founders-row">
     <div class="person">
