@@ -748,7 +748,7 @@ PRIVACY = "<strong>Privacy first.</strong> No ads, ever. No tracking. No account
 HEADER = """\
 <header class="site">
   <a class="brand" href="https://oakencode.com">Oakencode</a>
-  <nav><a href="https://oakencode.com">Home</a><a href="/apps/">Apps</a><a href="/support/">Support</a><a href="mailto:contact@oakencode.com">Contact</a></nav>
+  <nav><a href="https://oakencode.com">Home</a><a href="/apps/">Apps</a><a href="/bible/">Bible</a><a href="/support/">Support</a><a href="mailto:contact@oakencode.com">Contact</a></nav>
 </header>"""
 
 FOOTER = """\
@@ -891,7 +891,42 @@ def build():
         os.makedirs(d)
         with open(os.path.join(d, "index.html"), "w") as f:
             f.write(page(a["name"], body))
+    build_bible(_here)
     print(f"Built {len(APPS)} subpages + index into {OUT}")
+
+
+def build_bible(here):
+    """Copy the Bible reader (bible-src/) and its verse data (bible-data/)
+    into site/bible/. The reader is a static app generated from checked-in
+    sources, so every rebuild keeps it intact."""
+    src = os.path.join(here, "bible-src")
+    data = os.path.join(here, "bible-data")
+    dst = os.path.join(OUT, "bible")
+    os.makedirs(os.path.join(dst, "data"))
+    for fn in os.listdir(src):
+        shutil.copy(os.path.join(src, fn), os.path.join(dst, fn))
+    for fn in os.listdir(data):
+        p = os.path.join(data, fn)
+        if os.path.isdir(p):
+            shutil.copytree(p, os.path.join(dst, "data", fn))
+        elif fn.endswith(".json"):
+            shutil.copy(p, os.path.join(dst, "data", fn))
+        elif fn.endswith(".md"):
+            shutil.copy(p, os.path.join(dst, fn))
+    # PWA / home-screen icons from the Oakencode seal
+    seal_path = os.path.join(here, "assets-src", "oakencode-seal.jpg")
+    try:
+        from PIL import Image
+        seal = Image.open(seal_path).convert("RGB")
+        side = min(seal.size)
+        seal = seal.crop(((seal.size[0] - side) // 2, (seal.size[1] - side) // 2,
+                          (seal.size[0] + side) // 2, (seal.size[1] + side) // 2))
+        for size in (180, 192, 512):
+            seal.resize((size, size)).save(os.path.join(dst, f"icon-{size}.png"))
+    except Exception:
+        for size in (180, 192, 512):
+            shutil.copy(seal_path, os.path.join(dst, f"icon-{size}.png"))
+    print("Built Bible reader into site/bible")
 
 if __name__ == "__main__":
     build()

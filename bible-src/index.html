@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Oakencode Bible — KJV, World English Bible, Septuagint &amp; Torah</title>
+<meta name="description" content="A free Bible reader from Oakencode: King James Version, World English Bible, Brenton's Septuagint, and the Torah in Hebrew and English. No ads, no accounts, nothing tracked.">
+<meta name="theme-color" content="#16222e">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bible">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="stylesheet" href="bible.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="https://oakencode.com">Oakencode</a>
+  <nav><a href="https://oakencode.com">Home</a><a href="/apps/">Apps</a><a href="/bible/" aria-current="page">Bible</a><a href="/support/">Support</a><a href="mailto:contact@oakencode.com">Contact</a></nav>
+</header>
+
+<main>
+<div id="home-static">
+  <section class="presentation" aria-label="Presentation page">
+    <img class="seal" src="/assets/img/oakencode-seal.jpg" alt="The Oakencode seal">
+    <p class="pres-book">The Holy Bible</p>
+    <p class="pres-rule" aria-hidden="true">✦</p>
+    <p class="pres-to">Presented to Tony and Sharon Cruz</p>
+    <p class="pres-line">With love and gratitude,</p>
+    <p class="pres-line">From your son, James</p>
+    <p class="pres-rule" aria-hidden="true">✦</p>
+    <p class="pres-mem">In loving memory of Myrtle Underwood</p>
+    <p class="pres-actions"><a class="btn big" href="#/books/kjv">Begin Reading</a></p>
+    <p class="install-tip">On an iPhone: tap the Share button, then “Add to Home Screen”, and this Bible will sit on your home screen like an app.</p>
+  </section>
+
+  <section class="card" id="parasha-card" aria-label="This week's Torah portion">
+    <h2>This Week’s Torah Portion</h2>
+    <p class="muted" id="parasha-body">One moment — looking up this week’s portion…</p>
+    <p class="tiny muted">Weekly portion and calendar data: <a href="https://www.hebcal.com" target="_blank" rel="noopener">Hebcal</a>. If you are offline, <a href="#/torah">open the Torah</a> and choose any portion from the list.</p>
+  </section>
+
+  <section aria-label="Collections">
+    <h2 class="section-title">Read</h2>
+    <div class="grid">
+      <a class="coll" href="#/books/kjv"><h3>King James Version</h3><p>The beloved 1611 translation, in the public domain.</p></a>
+      <a class="coll" href="#/books/web"><h3>World English Bible</h3><p>A modern translation from the Greek and Hebrew — also public domain.</p></a>
+      <a class="coll" href="#/books/brenton"><h3>Brenton’s Septuagint</h3><p>The Old Testament as the Greek-speaking world read it, translated by Sir Lancelot Brenton (1844).</p></a>
+      <a class="coll" href="#/torah"><h3>The Torah</h3><p>The five books of Moses in Hebrew (Westminster Leningrad Codex) beside the English, with all 54 weekly portions.</p></a>
+    </div>
+  </section>
+
+  <section class="card" aria-label="Search">
+    <h2>Search the Scriptures</h2>
+    <form id="search-form">
+      <label class="sr" for="search-q">Search for a word or phrase</label>
+      <input id="search-q" type="search" placeholder="e.g. beginning, shepherd, mercy" autocomplete="off">
+      <button class="btn" type="submit">Search</button>
+    </form>
+    <p class="tiny muted">Searches the King James Version, World English Bible, and Brenton’s Septuagint, right on your device.</p>
+  </section>
+
+  <p id="continue-row" hidden><a class="btn ghost" id="continue-link" href="#/">Continue reading</a></p>
+
+  <section class="card sources" aria-label="About these texts">
+    <h2>About these texts</h2>
+    <p>Every text here is public domain and free to share: the King James Version (1611); the World English Bible, a modern public-domain translation published by eBible.org; Brenton’s English Septuagint (1844), from eBible.org; and the Hebrew Torah from the Westminster Leningrad Codex, courtesy of Tanach.us. Full provenance is recorded in <a href="SOURCES.md">SOURCES.md</a>. Where the Greek Old Testament numbers chapters differently from the Hebrew — most visibly in the Psalms — the parallel view matches chapters to the same psalm and says so.</p>
+  </section>
+</div>
+
+<div id="app" aria-live="polite"></div>
+<noscript><p class="card">This reader needs JavaScript turned on to open the books. The texts themselves are free for anyone to download — see SOURCES.md.</p></noscript>
+</main>
+
+<footer>
+  Oakencode — honest software, built by a normal man, for normal people.<br>
+  <a href="mailto:contact@oakencode.com">contact@oakencode.com</a>
+  <div class="credits">
+    Owner-Developer: Skipper James Bryant<br>
+    Muse-Developer: Miss Moxie Linn<br>
+    Credit: Mr. James Allen<br>
+    Credit: Miss Amy Hwang
+  </div>
+</footer>
+<script src="bible.js"></script>
+</body>
+</html>
