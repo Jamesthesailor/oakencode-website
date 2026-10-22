@@ -213,6 +213,7 @@ section.block.lab h2 { color: var(--muted); font-size: .8rem; }
 .method-card h2 { font-size: 1.2rem; color: var(--gold); }
 .method-card .handle { color: var(--muted); font-size: .95rem; }
 .method-card .handle strong { color: var(--text); }
+.method-card .note { color: var(--muted); font-size: .88rem; }
 .figs { border-top: 1px solid var(--line); padding-top: .7rem; }
 .figs .row { display: flex; justify-content: space-between; padding: .25rem 0; color: var(--muted); }
 .figs .row strong { color: var(--text); }
@@ -570,6 +571,12 @@ SUPPORT_METHODS = [
          handle="ko-fi.com/oakencode", button="Support on Ko-fi",
          fee_label="Ko-fi takes $0 · PayPal processing (3% + $0.30) takes",
          handle_line="Open <strong>ko-fi.com/oakencode</strong> in your browser, or use the button below."),
+    dict(name="PayPal", fee_pct=2.89, fee_flat=0.49,
+         url_base="https://www.paypal.com/donate/?hosted_button_id=37JSR7VDHML24", url_suffix="&amount={amt}",
+         handle="OakenCode on PayPal", button="Support with PayPal",
+         fee_label="PayPal processing (2.89% + $0.49) takes",
+         handle_line="Donate to <strong>OakenCode on PayPal</strong> — or just use the button below.",
+         note="Donors can add a little to cover the fees — and monthly giving is available."),
 ]
 SUPPORT_DEFAULT_AMOUNT = 10
 SUPPORT_PRESETS = (3, 5, 10, 25, 50)
@@ -593,6 +600,7 @@ def support_page():
         handle_line = m.get(
             "handle_line",
             f"Send to <strong>{m['handle']}</strong> in the app, or use the button below.")
+        note_html = f'\n      <p class="note">{m["note"]}</p>' if m.get("note") else ""
         cards.append(f"""\
     <div class="method-card" data-fee-pct="{m['fee_pct']}" data-fee-flat="{m['fee_flat']}" data-url-base="{m['url_base']}" data-url-suffix="{m['url_suffix']}">
       <h2>{m['name']}</h2>
@@ -601,7 +609,7 @@ def support_page():
         <div class="row"><span>You send</span><strong class="f-send">{_money(amt)}</strong></div>
         <div class="row"><span>{fee_label}</span><strong class="f-fee">{_money(fee)}</strong></div>
         <div class="row total"><span>Oakencode receives</span><strong class="f-recv">{_money(recv)}</strong></div>
-      </div>
+      </div>{note_html}
       <a class="btn f-btn" href="{href}" target="_blank" rel="noopener">{m['button']}</a>
     </div>""")
     chips = "".join(
@@ -622,7 +630,6 @@ def support_page():
 <div class="methods">
 {''.join(cards)}
 </div>
-<p class="on-the-way">More ways to support are on the way.</p>
 <p class="fee-note">Fees as published October 2026; your provider's rates may vary.</p>
 {brand_strip("maestrr-founder-tie-full.png", ["moxie-support-a.png", "moxie-support-b.png"])}
 <script>
