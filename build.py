@@ -3,6 +3,7 @@
 Run: python3 build.py   -> outputs into ./site/
 """
 import os, shutil
+from decimal import Decimal, ROUND_HALF_UP
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site")
 ASSETS_SRC = {
@@ -564,6 +565,11 @@ SUPPORT_METHODS = [
     dict(name="Cash App", fee_pct=2.6, fee_flat=0.15,
          url_base="https://cash.app/$OakenCode", url_suffix="/{amt}",
          handle="$OakenCode", button="Support with Cash App"),
+    dict(name="Ko-fi", fee_pct=2.9, fee_flat=0.30,
+         url_base="https://ko-fi.com/oakencode", url_suffix="",
+         handle="ko-fi.com/oakencode", button="Support on Ko-fi",
+         fee_label="Ko-fi takes $0 · processing (2.9% + $0.30) takes",
+         handle_line="Open <strong>ko-fi.com/oakencode</strong> in your browser, or use the button below."),
 ]
 SUPPORT_DEFAULT_AMOUNT = 10
 SUPPORT_PRESETS = (3, 5, 10, 25, 50)
@@ -571,20 +577,29 @@ SUPPORT_PRESETS = (3, 5, 10, 25, 50)
 def _money(x):
     return f"${x:,.2f}"
 
+def _support_fee(amount, method):
+    fee = (Decimal(str(amount)) * Decimal(str(method["fee_pct"])) / Decimal("100")
+           + Decimal(str(method["fee_flat"])))
+    return fee.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
 def support_page():
     cards = []
     for m in SUPPORT_METHODS:
         amt = SUPPORT_DEFAULT_AMOUNT
-        fee = round(amt * m["fee_pct"] / 100 + m["fee_flat"], 2)
-        recv = round(amt - fee, 2)
+        fee = _support_fee(amt, m)
+        recv = Decimal(str(amt)) - fee
         href = m["url_base"] + m["url_suffix"].replace("{amt}", f"{amt:g}")
+        fee_label = m.get("fee_label", f"{m['name']} takes")
+        handle_line = m.get(
+            "handle_line",
+            f"Send to <strong>{m['handle']}</strong> in the app, or use the button below.")
         cards.append(f"""\
     <div class="method-card" data-fee-pct="{m['fee_pct']}" data-fee-flat="{m['fee_flat']}" data-url-base="{m['url_base']}" data-url-suffix="{m['url_suffix']}">
       <h2>{m['name']}</h2>
-      <p class="handle">Send to <strong>{m['handle']}</strong> in the app, or use the button below.</p>
+      <p class="handle">{handle_line}</p>
       <div class="figs">
         <div class="row"><span>You send</span><strong class="f-send">{_money(amt)}</strong></div>
-        <div class="row"><span>{m['name']} takes</span><strong class="f-fee">{_money(fee)}</strong></div>
+        <div class="row"><span>{fee_label}</span><strong class="f-fee">{_money(fee)}</strong></div>
         <div class="row total"><span>Oakencode receives</span><strong class="f-recv">{_money(recv)}</strong></div>
       </div>
       <a class="btn f-btn" href="{href}" target="_blank" rel="noopener">{m['button']}</a>
@@ -616,6 +631,7 @@ def support_page():
   var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
   var cards = Array.prototype.slice.call(document.querySelectorAll('.method-card'));
   function fmt(n) {{ return '$' + n.toFixed(2); }}
+  function roundMoney(n) {{ return Math.round((n + 1e-9) * 100) / 100; }}
   function amtForUrl(n) {{ return (Math.round(n * 100) / 100).toString(); }}
   function update() {{
     var amt = parseFloat(input.value);
@@ -624,8 +640,8 @@ def support_page():
     cards.forEach(function (card) {{
       var pct = parseFloat(card.getAttribute('data-fee-pct'));
       var flat = parseFloat(card.getAttribute('data-fee-flat'));
-      var fee = Math.round((amt * pct / 100 + flat) * 100) / 100;
-      var recv = Math.round((amt - fee) * 100) / 100;
+      var fee = roundMoney(amt * pct / 100 + flat);
+      var recv = roundMoney(amt - fee);
       card.querySelector('.f-send').textContent = fmt(amt);
       card.querySelector('.f-fee').textContent = fmt(fee);
       card.querySelector('.f-recv').textContent = fmt(recv);
