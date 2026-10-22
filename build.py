@@ -225,6 +225,7 @@ section.block.lab h2 { color: var(--muted); font-size: .8rem; }
 
 PLANT_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/plant-care.apk"
 PET_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/pet-health-vault.apk"
+DIARY_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/private-diary.apk"
 PERSINT_TESTER = "https://play.google.com/apps/testing/com.persint.app"
 PLAY_NOTE = "Google Play is still reviewing our developer access — download the app here today; the Play version is coming."
 
@@ -292,17 +293,21 @@ APPS = [
          cta=("Download APK", PET_APK),
          note=PLAY_NOTE,
          founder="maestrr-founder-tie-full.png", strip=["moxie-pet-strip.png"]),
-    dict(slug="private-diary", name="Private Diary", status="Planned", badge="",
-         tag="An encrypted journal only you can open.",
+    dict(slug="private-diary", name="Private Diary", status="Available now", badge="",
+         tag="A locked, encrypted diary. PIN unlock, on-device only, no ads, no accounts.",
          icon=None, mono="D", hero_img=None,
-         desc="An encrypted journal only you can open.",
+         desc="Your diary should be yours. Not a company's, not a cloud's, not anyone's. Private Diary keeps every entry on your phone, encrypted, behind a PIN. No account. No sign-up. No ads. Nothing to sync because there's nothing to leak — we couldn't read your diary if we wanted to.",
          feats=[
-             "Biometric/PIN lock, encrypted on-device storage",
-             "No account, no cloud, no sync servers",
-             "Search your own entries",
-             "Export when you want out",
+             "PIN lock — it re-locks the moment you leave the app",
+             "Every entry encrypted on the device (AES-256)",
+             "Unlimited entries in your first notebook",
+             "Calendar view, full-text search, tags and mood markers",
+             "Seven themes, including the Oakencode navy & gold",
+             "Backup export and import — free, always. Your backup is free. Your words are yours.",
          ],
-         pricing=None, cta=None,
+         pricing="Free for one notebook — unlimited entries, calendar, search, tags, moods, and backup export included; the lock and the encryption are never paywalled. One-time $4.99 Pro unlock in the Play version: multiple notebooks, photo attachments in entries, sealed time-capsule entries that won't open until a date you choose, a print-ready PDF journal book, and a decoy notebook with its own duress PIN.",
+         cta=("Download APK", DIARY_APK),
+         note=PLAY_NOTE,
          founder="maestrr-founder-hat-full.png", strip=["moxie-diary-a.png", "moxie-diary-b.png"]),
     dict(slug="budget-tracker", name="Budget Tracker", status="Planned", badge="",
          tag="Manual money tracking, offline. Your money, your phone.",
