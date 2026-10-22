@@ -565,10 +565,10 @@ SUPPORT_METHODS = [
     dict(name="Cash App", fee_pct=2.6, fee_flat=0.15,
          url_base="https://cash.app/$OakenCode", url_suffix="/{amt}",
          handle="$OakenCode", button="Support with Cash App"),
-    dict(name="Ko-fi", fee_pct=2.9, fee_flat=0.30,
+    dict(name="Ko-fi", fee_pct=3, fee_flat=0.30,
          url_base="https://ko-fi.com/oakencode", url_suffix="",
          handle="ko-fi.com/oakencode", button="Support on Ko-fi",
-         fee_label="Ko-fi takes $0 · processing (2.9% + $0.30) takes",
+         fee_label="Ko-fi takes $0 · PayPal processing (3% + $0.30) takes",
          handle_line="Open <strong>ko-fi.com/oakencode</strong> in your browser, or use the button below."),
 ]
 SUPPORT_DEFAULT_AMOUNT = 10
