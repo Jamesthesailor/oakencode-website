@@ -15,19 +15,50 @@ ASSETS_SRC = {
     "/home/hatch/workspace/plant-care-assets/screenshots-final/03-template-picker.png": "assets/img/plant-care-shot-picker.png",
     "/home/hatch/workspace/plant-care-assets/screenshots-final/04-add-plant.png": "assets/img/plant-care-shot-add.png",
     "/home/hatch/workspace/plant-care-assets/screenshots-final/05-settings.png": "assets/img/plant-care-shot-settings.png",
-    "/home/hatch/workspace/plant-care-assets/screenshots-final/06-moxie-ad.png": "assets/img/plant-care-shot-moxie.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/plant-care-moxie-ad-web.png": "assets/img/plant-care-shot-moxie.png",
     "/home/hatch/workspace/pet-health-vault-assets/pet-health-vault-icon-512.png": "assets/img/pet-health-vault-icon.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/01-pet-list.png": "assets/img/pet-health-vault-shot-list.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/02-pet-detail.png": "assets/img/pet-health-vault-shot-detail.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/03-breed-picker.png": "assets/img/pet-health-vault-shot-picker.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/04-edit-pet.png": "assets/img/pet-health-vault-shot-edit.png",
-    "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/05-moxie-ad.png": "assets/img/pet-health-vault-shot-moxie.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/pet-health-vault-moxie-ad-web.png": "assets/img/pet-health-vault-shot-moxie.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/06-allergies-alert.png": "assets/img/pet-health-vault-shot-allergies.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/07-sitter-handoff.png": "assets/img/pet-health-vault-shot-sitter.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/08-pet-id-card.png": "assets/img/pet-health-vault-shot-idcard.png",
     "/home/hatch/workspace/oakencode-website/assets-src/moxie-pet-presenter.png": "assets/img/moxie-pet-presenter.png",
     "/home/hatch/workspace/oakencode-website/assets-src/moxie-hero.png": "assets/img/moxie-hero.png",
     "/home/hatch/workspace/oakencode-website/assets-src/maestrr-founder.png": "assets/img/maestrr-founder.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/maestrr-founder-hat.png": "assets/img/maestrr-founder-hat.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/maestrr-founder-hat-full.png": "assets/img/maestrr-founder-hat-full.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/maestrr-founder-tie.png": "assets/img/maestrr-founder-tie.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/maestrr-founder-mandarin.png": "assets/img/maestrr-founder-mandarin.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/maestrr-founder-tie-full.png": "assets/img/maestrr-founder-tie-full.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/maestrr-founder-mandarin-full.png": "assets/img/maestrr-founder-mandarin-full.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-persint-presenter.png": "assets/img/moxie-persint-presenter.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-plant-presenter.png": "assets/img/moxie-plant-presenter.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-home-cohort.png": "assets/img/moxie-home-cohort.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-index-a.png": "assets/img/moxie-index-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-index-b.png": "assets/img/moxie-index-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-persint-a.png": "assets/img/moxie-persint-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-persint-b.png": "assets/img/moxie-persint-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-plant-strip.png": "assets/img/moxie-plant-strip.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-pet-strip.png": "assets/img/moxie-pet-strip.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-diary-a.png": "assets/img/moxie-diary-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-diary-b.png": "assets/img/moxie-diary-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-budget-a.png": "assets/img/moxie-budget-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-budget-b.png": "assets/img/moxie-budget-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-car-a.png": "assets/img/moxie-car-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-car-b.png": "assets/img/moxie-car-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-gym-a.png": "assets/img/moxie-gym-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-gym-b.png": "assets/img/moxie-gym-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-bill-a.png": "assets/img/moxie-bill-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-bill-b.png": "assets/img/moxie-bill-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-baby-a.png": "assets/img/moxie-baby-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-baby-b.png": "assets/img/moxie-baby-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-collection-a.png": "assets/img/moxie-collection-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-collection-b.png": "assets/img/moxie-collection-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-privacy-a.png": "assets/img/moxie-privacy-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-privacy-b.png": "assets/img/moxie-privacy-b.png",
 }
 
 CSS = """\
@@ -179,7 +210,8 @@ APPS = [
              "Family dossier — findings for the people you care about, stored only on your phone",
          ],
          pricing=None,
-         cta=("Become a tester", "https://play.google.com/apps/testing/com.persint.app")),
+         cta=("Become a tester", "https://play.google.com/apps/testing/com.persint.app"),
+         founder="maestrr-founder.png", strip=["moxie-persint-a.png", "moxie-persint-b.png"]),
     dict(slug="plant-care", name="Plant Care", status="Available now", badge="",
          tag="Your plants, on a schedule.",
          icon="plant-care-icon.png", mono=None, hero_img="plant-care-feature-graphic.png",
@@ -200,7 +232,8 @@ APPS = [
              ("plant-care-shot-moxie.png", "Moxie presents Plant Care."),
          ],
          cta=("Download APK", PLANT_APK),
-         note=PLAY_NOTE),
+         note=PLAY_NOTE,
+         founder="maestrr-founder-mandarin.png", strip=["moxie-plant-strip.png"]),
     dict(slug="pet-health-vault", name="Pet Health Vault", status="Available now", badge="",
          tag="Your pet's whole health story — scheduler, diary, logs, and vault. Offline, private, yours.",
          icon="pet-health-vault-icon.png", mono="P", hero_img=None,
@@ -227,7 +260,8 @@ APPS = [
              ("pet-health-vault-shot-moxie.png", "Moxie presents Pet Health Vault."),
          ],
          cta=("Download APK", PET_APK),
-         note=PLAY_NOTE),
+         note=PLAY_NOTE,
+         founder="maestrr-founder-tie-full.png", strip=["moxie-pet-strip.png"]),
     dict(slug="private-diary", name="Private Diary", status="Planned", badge="",
          tag="An encrypted journal only you can open.",
          icon=None, mono="D", hero_img=None,
@@ -238,7 +272,8 @@ APPS = [
              "Search your own entries",
              "Export when you want out",
          ],
-         pricing=None, cta=None),
+         pricing=None, cta=None,
+         founder="maestrr-founder-hat-full.png", strip=["moxie-diary-a.png", "moxie-diary-b.png"]),
     dict(slug="budget-tracker", name="Budget Tracker", status="Planned", badge="",
          tag="Manual money tracking, offline. Your money, your phone.",
          icon=None, mono="B", hero_img=None,
@@ -249,7 +284,8 @@ APPS = [
              "Simple charts of where it went",
              "Export CSV",
          ],
-         pricing=None, cta=None),
+         pricing=None, cta=None,
+         founder="maestrr-founder-mandarin-full.png", strip=["moxie-budget-a.png", "moxie-budget-b.png"]),
     dict(slug="car-log", name="Car Log", status="Planned", badge="",
          tag="Fuel, service, repairs — your car's whole history.",
          icon=None, mono="C", hero_img=None,
@@ -260,7 +296,8 @@ APPS = [
              "Reminders for oil, tires, inspections",
              "Cost-per-mile over time",
          ],
-         pricing=None, cta=None),
+         pricing=None, cta=None,
+         founder="maestrr-founder-tie.png", strip=["moxie-car-a.png", "moxie-car-b.png"]),
     dict(slug="gym-tracker", name="Gym Tracker", status="Planned", badge="",
          tag="Log workouts offline. No account, no cloud.",
          icon=None, mono="G", hero_img=None,
@@ -271,7 +308,8 @@ APPS = [
              "Rest timer",
              "Export your data",
          ],
-         pricing=None, cta=None),
+         pricing=None, cta=None,
+         founder="maestrr-founder.png", strip=["moxie-gym-a.png", "moxie-gym-b.png"]),
     dict(slug="bill-splitter", name="Bill Splitter", status="Planned", badge="",
          tag="Split bills with friends. No accounts, no fees.",
          icon=None, mono="S", hero_img=None,
@@ -282,7 +320,8 @@ APPS = [
              "Settle-up tracking",
              "Works fully offline — no sign-up for anyone",
          ],
-         pricing=None, cta=None),
+         pricing=None, cta=None,
+         founder="maestrr-founder-mandarin.png", strip=["moxie-bill-a.png", "moxie-bill-b.png"]),
     dict(slug="baby-log", name="Baby Log", status="Planned", badge="",
          tag="Feeds, sleep, diapers, milestones — for tired parents, offline.",
          icon=None, mono="B", hero_img=None,
@@ -293,7 +332,8 @@ APPS = [
              "Patterns over days and weeks",
              "Private — no cloud nursery",
          ],
-         pricing=None, cta=None),
+         pricing=None, cta=None,
+         founder="maestrr-founder-tie-full.png", strip=["moxie-baby-a.png", "moxie-baby-b.png"]),
     dict(slug="collection-vault", name="Collection Vault", status="Planned", badge="",
          tag="Catalog any collection. Barcode, photo, inventory — offline.",
          icon=None, mono="C", hero_img=None,
@@ -304,7 +344,8 @@ APPS = [
              "Value tracking",
              "Exportable inventory",
          ],
-         pricing=None, cta=None),
+         pricing=None, cta=None,
+         founder="maestrr-founder-hat.png", strip=["moxie-collection-a.png", "moxie-collection-b.png"]),
 ]
 
 TEASER = ("an all-in-one kitchen companion, a document vault, a receipt "
@@ -359,6 +400,27 @@ def app_section(icon_src, name, badge_html, tagline, feats, pricing, cta_label, 
   </div>
 </section>"""
 
+def brand_strip(founder_img, moxie_imgs):
+    persons = [f"""\
+    <div class="person">
+      <img src="/apps/assets/img/{founder_img}" alt="James Bryant, Founder of Oakencode">
+      <h3>James Bryant</h3>
+      <span class="badge">Founder</span>
+    </div>"""]
+    for img in moxie_imgs:
+        persons.append(f"""\
+    <div class="person">
+      <img src="/apps/assets/img/{img}" alt="Miss Moxie Linn, Cohort of Oakencode" loading="lazy">
+      <h3>Miss Moxie Linn</h3>
+      <span class="badge">Cohort</span>
+    </div>""")
+    return f"""\
+<section class="block founder">
+  <div class="founders-row">
+{''.join(persons)}
+  </div>
+</section>"""
+
 def homepage():
     strip = []
     for p in PROJECTS:
@@ -389,7 +451,7 @@ def homepage():
        "Family dossier — findings for the people you care about, stored only on your phone"],
       None, "Become a tester", PERSINT_TESTER,
       "In closed testing on Google Play. Join with the Google account on your phone, then install from the Play Store.",
-      "/apps/assets/img/moxie-hero.png", "Moxie presenting Pers-int")}
+      "/apps/assets/img/moxie-persint-presenter.png", "Moxie presenting Pers-int")}
   {app_section("/apps/assets/img/plant-care-icon.png", "Plant Care", '<span class="badge">Available now</span>',
       "Your plants, on a schedule.",
       ["Water & feed reminders at 9am; due and overdue at a glance",
@@ -397,7 +459,7 @@ def homepage():
        "103 common-plant templates — Snake Plant, Pothos, Monstera, Basil, Tomato, Strawberry, and more",
        "Backup, export, import — your data is yours"],
       "Free for up to 5 plants. One-time $4.99 Pro unlock in the Play version.", "Download APK", PLANT_APK, PLAY_NOTE,
-      "/apps/assets/img/plant-care-shot-moxie.png", "Moxie presenting Plant Care", flip=True)}
+      "/apps/assets/img/moxie-plant-presenter.png", "Moxie presenting Plant Care", flip=True)}
   {app_section("/apps/assets/img/pet-health-vault-icon.png", "Pet Health Vault", '<span class="badge">Available now</span>',
       "Your pet's whole health story — scheduler, diary, logs, and vault. Offline, private, yours.",
       ["Reminders for vaccinations, vet visits, and meds — with a multi-pet calendar",
@@ -411,12 +473,12 @@ def homepage():
 <section class="block founder">
   <div class="founders-row">
     <div class="person">
-      <img src="/apps/assets/img/maestrr-founder.png" alt="James Bryant, Founder of Oakencode">
+      <img src="/apps/assets/img/maestrr-founder-hat.png" alt="James Bryant, Founder of Oakencode">
       <h3>James Bryant</h3>
       <span class="badge">Founder</span>
     </div>
     <div class="person">
-      <img src="/apps/assets/img/moxie-hero.png" alt="Miss Moxie Linn, Cohort">
+      <img src="/apps/assets/img/moxie-home-cohort.png" alt="Miss Moxie Linn, Cohort">
       <h3>Miss Moxie Linn</h3>
       <span class="badge">Cohort</span>
     </div>
@@ -485,6 +547,13 @@ h2 { margin-top: 1.5em; font-size: 1.2em; }
 
 <h2>Contact</h2>
 <p>Questions about this policy: contact us through the app's About section.</p>
+
+<div style="text-align:center; margin-top:2.5em;">
+  <img src="/apps/assets/img/maestrr-founder-mandarin-full.png" alt="James Bryant, Founder of Oakencode" style="width:150px; border-radius:10px; margin:0 6px;">
+  <img src="/apps/assets/img/moxie-privacy-a.png" alt="Miss Moxie Linn, Cohort" style="width:150px; border-radius:10px; margin:0 6px;">
+  <img src="/apps/assets/img/moxie-privacy-b.png" alt="Miss Moxie Linn, Cohort" style="width:150px; border-radius:10px; margin:0 6px;">
+  <p style="color:#666; font-size:0.9em;">James Bryant — Founder &nbsp;·&nbsp; Miss Moxie Linn — Cohort</p>
+</div>
 
 <hr>
 <footer style="text-align:center; color:#666; font-size:0.9em; margin-top:2em;">
@@ -590,6 +659,7 @@ def build():
 {''.join(cards)}
 </div>
 <div class="teaser"><strong>On the workbench:</strong> {TEASER}</div>
+{brand_strip("maestrr-founder-tie.png", ["moxie-index-a.png", "moxie-index-b.png"])}
 """
     with open(os.path.join(OUT, "apps", "index.html"), "w") as f:
         f.write(page("Apps", index_body))
@@ -636,6 +706,7 @@ def build():
 <div class="privacy">{PRIVACY}</div>
 {cta}
 <a class="back" href="/apps/">← All apps</a>
+{brand_strip(a['founder'], a['strip'])}
 """
         d = os.path.join(OUT, "apps", a["slug"])
         os.makedirs(d)
