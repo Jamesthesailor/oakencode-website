@@ -205,10 +205,13 @@ APPS = [
              "Reminders for vaccinations, vet visits, and meds — with a multi-pet calendar",
              "Health diary, weight tracker with trend chart, and feed / water / walk logs",
              "57 breed templates with sensible care guidance",
+             "Allergies on every profile — shown as an alert right on the pet's page",
+             "Owner & emergency contacts, printed on the pet ID card and sitter sheet",
+             "The PDF kit: health reports, vaccination certificates, pet ID card, sitter handoff sheet, ZIP export",
              "Freedom Units by default (pounds, ounces, miles); metric optional",
              "Documents vault, photo gallery, backup and export — your data never leaves your phone",
          ],
-         pricing="Free for up to 3 pets. One-time $4.99 Pro unlock in the Play version.",
+         pricing="Free for up to 3 pets — calendar and bulk actions included. One-time $4.99 Pro unlock in the Play version: unlimited pets, CSV export, and the PDF kit — vet-visit health reports, vaccination certificates, a printable pet ID & emergency card, a sitter handoff sheet, and full ZIP export.",
          shots=[
              ("pet-health-vault-shot-list.png", "Every pet, at a glance."),
              ("pet-health-vault-shot-detail.png", "Health, logs, and records in one place."),
@@ -393,9 +396,9 @@ def homepage():
       ["Reminders for vaccinations, vet visits, and meds — with a multi-pet calendar",
        "Health diary, weight tracker with trend chart, and feed / water / walk logs",
        "57 breed templates with sensible care guidance",
-       "Freedom Units by default (pounds, ounces, miles); metric optional",
+       "Allergies on every profile, plus owner & emergency contacts",
        "Documents vault, photo gallery, backup and export — your data never leaves your phone"],
-      "Free for up to 3 pets. One-time $4.99 Pro unlock in the Play version.", "Download APK", PET_APK, PLAY_NOTE,
+      "Free for up to 3 pets — calendar and bulk actions included. One-time $4.99 Pro unlock in the Play version: unlimited pets, CSV export, and the PDF kit — vet-visit health reports, vaccination certificates, a printable pet ID & emergency card, a sitter handoff sheet, and full ZIP export.", "Download APK", PET_APK, PLAY_NOTE,
       "/apps/assets/img/moxie-pet-presenter.png", "Moxie presenting Pet Health Vault")}
 </section>
 <section class="block founder">
