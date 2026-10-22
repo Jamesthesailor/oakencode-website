@@ -18,6 +18,7 @@ ASSETS_SRC = {
     "/home/hatch/workspace/plant-care-assets/screenshots-final/05-settings.png": "assets/img/plant-care-shot-settings.png",
     "/home/hatch/workspace/oakencode-website/assets-src/plant-care-moxie-ad-web.png": "assets/img/plant-care-shot-moxie.png",
     "/home/hatch/workspace/pet-health-vault-assets/pet-health-vault-icon-512.png": "assets/img/pet-health-vault-icon.png",
+    "/home/hatch/workspace/private-diary-assets/private-diary-icon-512.png": "assets/img/private-diary-icon.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/01-pet-list.png": "assets/img/pet-health-vault-shot-list.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/02-pet-detail.png": "assets/img/pet-health-vault-shot-detail.png",
     "/home/hatch/workspace/pet-health-vault-assets/screenshots-final/03-breed-picker.png": "assets/img/pet-health-vault-shot-picker.png",
@@ -416,16 +417,17 @@ BELIEFS = [
     "Pay for software, not with yourself",
 ]
 
-def app_section(icon_src, name, badge_html, tagline, feats, pricing, cta_label, cta_url, note, presenter_src, presenter_alt, flip=False):
+def app_section(icon_src, name, badge_html, tagline, feats, pricing, cta_label, cta_url, note, presenter_src, presenter_alt, flip=False, page_url=None):
     feats_html = "".join(f"<li>{x}</li>" for x in feats)
     pricing_html = f"<p><strong>Pricing:</strong> {pricing}</p>" if pricing else ""
     flip_cls = " flip" if flip else ""
+    heading_html = f'<a href="{page_url}" style="color:inherit;text-decoration:none;">{name}</a>' if page_url else name
     return f"""\
 <section class="app-section{flip_cls}">
   <div class="app-media"><img src="{presenter_src}" alt="{presenter_alt}" loading="lazy"></div>
   <div class="app-body">
     <img class="icon" src="{icon_src}" alt="{name} icon">
-    <h2>{name}</h2>
+    <h2>{heading_html}</h2>
     {badge_html}
     <p class="tagline">{tagline}</p>
     <ul class="feat">{feats_html}</ul>
@@ -482,7 +484,7 @@ def homepage():
 <div class="hero">
   <img src="/assets/img/oakencode-seal.jpg" alt="Oakencode seal" style="width:120px;height:120px;border-radius:50%;">
   <h1>Honest software, built by a normal man, for normal people.</h1>
-  <p>No ads. No tracking. No dark patterns. Just tools that do what they say — and two of them are ready to download right now.</p>
+  <p>No ads. No tracking. No dark patterns. Just tools that do what they say — and three of them are ready to download right now.</p>
   <img class="hero-model" src="/apps/assets/img/moxie-hero.png" alt="Moxie presenting Oakencode">
   <div class="cta"><a class="btn" href="#apps">Get the apps</a> <a class="btn btn-ghost" href="{PERSINT_TESTER}">Become a Pers-int tester</a></div>
 </div>
@@ -505,6 +507,16 @@ def homepage():
        "Documents vault, photo gallery, backup and export — your data never leaves your phone"],
       "Free for up to 3 pets — calendar and bulk actions included. One-time $4.99 Pro unlock in the Play version: unlimited pets, CSV export, and the PDF kit — vet-visit health reports, vaccination certificates, a printable pet ID & emergency card, a sitter handoff sheet, and full ZIP export.", "Download APK", PET_APK, PLAY_NOTE,
       "/apps/assets/img/moxie-pet-presenter.png", "Moxie presenting Pet Health Vault")}
+  {app_section("/apps/assets/img/private-diary-icon.png", "Private Diary", '<span class="badge">Available now</span>',
+      "A locked, encrypted diary. PIN unlock, on-device only, no ads, no accounts.",
+      ["PIN lock — it re-locks the moment you leave the app",
+       "Every entry encrypted on the device (AES-256)",
+       "Unlimited entries in your first notebook",
+       "Calendar view, full-text search, tags and mood markers",
+       "Seven themes, including the Oakencode navy & gold",
+       "Backup export and import — free, always. Your backup is free. Your words are yours."],
+      "Free for one notebook — unlimited entries, calendar, search, tags, moods, and backup export included; the lock and the encryption are never paywalled. One-time $4.99 Pro unlock in the Play version: multiple notebooks, photo attachments in entries, sealed time-capsule entries that won't open until a date you choose, a print-ready PDF journal book, and a decoy notebook with its own duress PIN.", "Download APK", DIARY_APK, PLAY_NOTE,
+      "/apps/assets/img/moxie-diary-a.png", "Moxie presenting Private Diary", flip=True, page_url="/apps/private-diary/")}
 </section>
 {app_section("/apps/assets/img/pers-int-icon.png", "Pers-int", '<span class="badge testing">In closed testing</span>',
     "Your personal intelligence app — see what the internet knows about you.",
