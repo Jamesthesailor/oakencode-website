@@ -59,6 +59,8 @@ ASSETS_SRC = {
     "/home/hatch/workspace/oakencode-website/assets-src/moxie-collection-b.png": "assets/img/moxie-collection-b.png",
     "/home/hatch/workspace/oakencode-website/assets-src/moxie-privacy-a.png": "assets/img/moxie-privacy-a.png",
     "/home/hatch/workspace/oakencode-website/assets-src/moxie-privacy-b.png": "assets/img/moxie-privacy-b.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-support-a.png": "assets/img/moxie-support-a.png",
+    "/home/hatch/workspace/oakencode-website/assets-src/moxie-support-b.png": "assets/img/moxie-support-b.png",
 }
 
 CSS = """\
@@ -195,6 +197,28 @@ footer a { color: var(--gold); }
 section.block.lab h2 { color: var(--muted); font-size: .8rem; }
 .lab p { margin: .4rem 0; }
 .lab strong { color: var(--text); }
+.amount-box { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; text-align: center; }
+.amount-box h2 { color: var(--gold); font-size: 1rem; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 1rem; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-bottom: 1rem; }
+.chip { background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 999px; padding: .5rem 1.1rem; font-size: 1rem; cursor: pointer; font-family: inherit; }
+.chip:hover { border-color: var(--gold); }
+.chip.active { background: var(--gold); color: #0a0e1a; font-weight: 700; border-color: var(--gold); }
+.custom-amount { color: var(--muted); font-size: .95rem; }
+.custom-amount input { width: 110px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; color: var(--text); padding: .5rem .6rem; font-size: 1rem; text-align: center; font-family: inherit; }
+.custom-amount input:focus { outline: none; border-color: var(--gold); }
+.legal { border-top: 1px solid var(--gold-dim); border-bottom: 1px solid var(--gold-dim); color: var(--muted); font-size: .92rem; text-align: center; padding: 1rem .5rem; margin: 2rem 0; }
+.methods { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.method-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: .7rem; }
+.method-card h2 { font-size: 1.2rem; color: var(--gold); }
+.method-card .handle { color: var(--muted); font-size: .95rem; }
+.method-card .handle strong { color: var(--text); }
+.figs { border-top: 1px solid var(--line); padding-top: .7rem; }
+.figs .row { display: flex; justify-content: space-between; padding: .25rem 0; color: var(--muted); }
+.figs .row strong { color: var(--text); }
+.figs .row.total strong { color: var(--gold); }
+.method-card .btn { text-align: center; margin-top: auto; }
+.on-the-way { text-align: center; color: var(--muted); margin-top: 2rem; }
+.fee-note { text-align: center; color: var(--muted); font-size: .85rem; margin-top: .75rem; }
 """
 
 PLANT_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/plant-care.apk"
@@ -499,7 +523,7 @@ def homepage():
   </div>
   <div>
     <h2>The man behind it</h2>
-    <p>Oakencode is a one-man shop. James Bryant designs, builds, and ships every app himself — no teams, no ads department. Our investors are you. Just a normal man making the tools he wanted for his own family, and sharing them with yours.</p>
+    <p>Oakencode is a one-man shop. James Bryant designs, builds, and ships every app himself — no teams, no ads department. <a href="/support/" style="color:var(--gold);">Our investors are you.</a> Just a normal man making the tools he wanted for his own family, and sharing them with yours.</p>
     <p>Miss Moxie Linn is his cohort — the collaborator behind the scenes and the one who keeps the whole pipeline moving. He builds the apps; she makes sure they ship.</p>
   </div>
 </section>
@@ -523,6 +547,98 @@ def homepage():
   <h2>From the lab</h2>
   {''.join(lab)}
 </section>
+"""
+
+# ---------------------------------------------------------------- support
+# One dict per support method; the /support/ page renders a card for each, so
+# adding a method later means adding one entry here — nothing else changes.
+#   fee_pct / fee_flat: the method's published fee (percent + flat USD)
+#   url_base + url_suffix: the public link; url_suffix carries an "{amt}"
+#     placeholder for the amount-prefilled form ("" if the method has none)
+#   handle: the public handle printed on the card for in-app sending
+#   Order = what Oakencode keeps, best first (checked at the preset amounts).
+SUPPORT_METHODS = [
+    dict(name="Venmo", fee_pct=1.9, fee_flat=0.10,
+         url_base="https://venmo.com/u/OakenCode", url_suffix="?txn=pay&amount={amt}",
+         handle="@OakenCode", button="Support with Venmo"),
+    dict(name="Cash App", fee_pct=2.6, fee_flat=0.15,
+         url_base="https://cash.app/$OakenCode", url_suffix="/{amt}",
+         handle="$OakenCode", button="Support with Cash App"),
+]
+SUPPORT_DEFAULT_AMOUNT = 10
+SUPPORT_PRESETS = (3, 5, 10, 25, 50)
+
+def _money(x):
+    return f"${x:,.2f}"
+
+def support_page():
+    cards = []
+    for m in SUPPORT_METHODS:
+        amt = SUPPORT_DEFAULT_AMOUNT
+        fee = round(amt * m["fee_pct"] / 100 + m["fee_flat"], 2)
+        recv = round(amt - fee, 2)
+        href = m["url_base"] + m["url_suffix"].replace("{amt}", f"{amt:g}")
+        cards.append(f"""\
+    <div class="method-card" data-fee-pct="{m['fee_pct']}" data-fee-flat="{m['fee_flat']}" data-url-base="{m['url_base']}" data-url-suffix="{m['url_suffix']}">
+      <h2>{m['name']}</h2>
+      <p class="handle">Send to <strong>{m['handle']}</strong> in the app, or use the button below.</p>
+      <div class="figs">
+        <div class="row"><span>You send</span><strong class="f-send">{_money(amt)}</strong></div>
+        <div class="row"><span>{m['name']} takes</span><strong class="f-fee">{_money(fee)}</strong></div>
+        <div class="row total"><span>Oakencode receives</span><strong class="f-recv">{_money(recv)}</strong></div>
+      </div>
+      <a class="btn f-btn" href="{href}" target="_blank" rel="noopener">{m['button']}</a>
+    </div>""")
+    chips = "".join(
+        f'<button type="button" class="chip{" active" if a == SUPPORT_DEFAULT_AMOUNT else ""}" data-amount="{a}">${a}</button>'
+        for a in SUPPORT_PRESETS
+    )
+    return f"""\
+<div class="hero">
+  <h1>Our investors are you.</h1>
+  <p>No ads. No trackers. No accounts. Oakencode apps stay free of all three because the people who use them chip in. Pick an amount, see exactly what the payment service takes and what Oakencode receives, then support in one tap — honest math, on both sides.</p>
+</div>
+<div class="amount-box">
+  <h2>Choose an amount (USD)</h2>
+  <div class="chips">{chips}</div>
+  <label class="custom-amount">Or enter your own: $ <input id="custom-amount" type="number" min="1" step="any" value="{SUPPORT_DEFAULT_AMOUNT}"></label>
+</div>
+<p class="legal">Oakencode is a for-profit studio, not a charity. Support is not tax-deductible, and it buys no ownership, shares, or returns — it's a tip that keeps the apps free and ad-free.</p>
+<div class="methods">
+{''.join(cards)}
+</div>
+<p class="on-the-way">More ways to support are on the way.</p>
+<p class="fee-note">Fees as published October 2026; your provider's rates may vary.</p>
+{brand_strip("maestrr-founder-tie-full.png", ["moxie-support-a.png", "moxie-support-b.png"])}
+<script>
+(function () {{
+  var input = document.getElementById('custom-amount');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.method-card'));
+  function fmt(n) {{ return '$' + n.toFixed(2); }}
+  function amtForUrl(n) {{ return (Math.round(n * 100) / 100).toString(); }}
+  function update() {{
+    var amt = parseFloat(input.value);
+    if (isNaN(amt) || amt <= 0) {{ return; }}
+    chips.forEach(function (c) {{ c.classList.toggle('active', parseFloat(c.getAttribute('data-amount')) === amt); }});
+    cards.forEach(function (card) {{
+      var pct = parseFloat(card.getAttribute('data-fee-pct'));
+      var flat = parseFloat(card.getAttribute('data-fee-flat'));
+      var fee = Math.round((amt * pct / 100 + flat) * 100) / 100;
+      var recv = Math.round((amt - fee) * 100) / 100;
+      card.querySelector('.f-send').textContent = fmt(amt);
+      card.querySelector('.f-fee').textContent = fmt(fee);
+      card.querySelector('.f-recv').textContent = fmt(recv);
+      var base = card.getAttribute('data-url-base');
+      var suffix = card.getAttribute('data-url-suffix');
+      card.querySelector('.f-btn').setAttribute('href', suffix ? base + suffix.replace('{{amt}}', amtForUrl(amt)) : base);
+    }});
+  }}
+  chips.forEach(function (c) {{ c.addEventListener('click', function () {{ input.value = c.getAttribute('data-amount'); update(); }}); }});
+  input.addEventListener('input', update);
+  update();
+}})();
+</script>
 """
 
 PRIVACY_HTML = """\
@@ -592,7 +708,7 @@ PRIVACY = "<strong>Privacy first.</strong> No ads, ever. No tracking. No account
 HEADER = """\
 <header class="site">
   <a class="brand" href="https://oakencode.com">Oakencode</a>
-  <nav><a href="https://oakencode.com">Home</a><a href="/apps/">Apps</a><a href="mailto:contact@oakencode.com">Contact</a></nav>
+  <nav><a href="https://oakencode.com">Home</a><a href="/apps/">Apps</a><a href="/support/">Support</a><a href="mailto:contact@oakencode.com">Contact</a></nav>
 </header>"""
 
 FOOTER = """\
@@ -657,6 +773,11 @@ def build():
     os.makedirs(os.path.join(OUT, "pers-int-privacy"))
     with open(os.path.join(OUT, "pers-int-privacy", "index.html"), "w") as f:
         f.write(PRIVACY_HTML)
+
+    # Support page
+    os.makedirs(os.path.join(OUT, "support"))
+    with open(os.path.join(OUT, "support", "index.html"), "w") as f:
+        f.write(page("Support", support_page()))
 
     # Apps index
     cards = []
