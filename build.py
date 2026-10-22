@@ -411,12 +411,18 @@ def brand_strip(founder_img, moxie_imgs):
       <h3>James Bryant</h3>
       <span class="badge">Founder</span>
     </div>"""]
-    for img in moxie_imgs:
-        persons.append(f"""\
+    for i, img in enumerate(moxie_imgs):
+        if i == 0:
+            persons.append(f"""\
     <div class="person">
       <img src="/apps/assets/img/{img}" alt="Miss Moxie Linn, Cohort of Oakencode" loading="lazy">
       <h3>Miss Moxie Linn</h3>
       <span class="badge">Cohort</span>
+    </div>""")
+        else:
+            persons.append(f"""\
+    <div class="person">
+      <img src="/apps/assets/img/{img}" alt="Miss Moxie Linn of Oakencode" loading="lazy">
     </div>""")
     return f"""\
 <section class="block founder">
