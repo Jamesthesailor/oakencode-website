@@ -159,6 +159,7 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
 @media (max-width: 720px) { .app-section, .app-section.flip, .founder { flex-direction: column; } .app-media { flex: none; max-width: 280px; } }
 footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
 footer a { color: var(--gold); }
+.credits { margin-top: .9rem; line-height: 1.55; }
 """
 
 PLANT_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/plant-care.apk"
@@ -484,6 +485,17 @@ h2 { margin-top: 1.5em; font-size: 1.2em; }
 
 <h2>Contact</h2>
 <p>Questions about this policy: contact us through the app's About section.</p>
+
+<hr>
+<footer style="text-align:center; color:#666; font-size:0.9em; margin-top:2em;">
+  Oakencode — honest software, built by a normal man, for normal people.<br>
+  <a href="mailto:contact@oakencode.com">contact@oakencode.com</a><br>
+  <br>
+  Owner-Developer: Skipper James Bryant<br>
+  Muse-Developer: Miss Moxie Linn<br>
+  Credit: Mr. James Allen<br>
+  Credit: Miss Amy Hwang
+</footer>
 </body>
 </html>
 """
@@ -499,8 +511,13 @@ HEADER = """\
 FOOTER = """\
 <footer>
   Oakencode — honest software, built by a normal man, for normal people.<br>
-  Built in collaboration with Muse — Moxie Linn.<br>
   <a href="mailto:contact@oakencode.com">contact@oakencode.com</a>
+  <div class="credits">
+    Owner-Developer: Skipper James Bryant<br>
+    Muse-Developer: Miss Moxie Linn<br>
+    Credit: Mr. James Allen<br>
+    Credit: Miss Amy Hwang
+  </div>
 </footer>"""
 
 def page(title, body):

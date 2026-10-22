@@ -126,3 +126,4 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
 @media (max-width: 720px) { .app-section, .app-section.flip, .founder { flex-direction: column; } .app-media { flex: none; max-width: 280px; } }
 footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
 footer a { color: var(--gold); }
+.credits { margin-top: .9rem; line-height: 1.55; }
