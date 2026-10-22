@@ -41,6 +41,15 @@
         <div class="row total"><span>Oakencode receives</span><strong class="f-recv">$9.59</strong></div>
       </div>
       <a class="btn f-btn" href="https://cash.app/$OakenCode/10" target="_blank" rel="noopener">Support with Cash App</a>
+    </div>    <div class="method-card" data-fee-pct="2.9" data-fee-flat="0.3" data-url-base="https://ko-fi.com/oakencode" data-url-suffix="">
+      <h2>Ko-fi</h2>
+      <p class="handle">Open <strong>ko-fi.com/oakencode</strong> in your browser, or use the button below.</p>
+      <div class="figs">
+        <div class="row"><span>You send</span><strong class="f-send">$10.00</strong></div>
+        <div class="row"><span>Ko-fi takes $0 · processing (2.9% + $0.30) takes</span><strong class="f-fee">$0.59</strong></div>
+        <div class="row total"><span>Oakencode receives</span><strong class="f-recv">$9.41</strong></div>
+      </div>
+      <a class="btn f-btn" href="https://ko-fi.com/oakencode" target="_blank" rel="noopener">Support on Ko-fi</a>
     </div>
 </div>
 <p class="on-the-way">More ways to support are on the way.</p>
@@ -66,6 +75,7 @@
   var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
   var cards = Array.prototype.slice.call(document.querySelectorAll('.method-card'));
   function fmt(n) { return '$' + n.toFixed(2); }
+  function roundMoney(n) { return Math.round((n + 1e-9) * 100) / 100; }
   function amtForUrl(n) { return (Math.round(n * 100) / 100).toString(); }
   function update() {
     var amt = parseFloat(input.value);
@@ -74,8 +84,8 @@
     cards.forEach(function (card) {
       var pct = parseFloat(card.getAttribute('data-fee-pct'));
       var flat = parseFloat(card.getAttribute('data-fee-flat'));
-      var fee = Math.round((amt * pct / 100 + flat) * 100) / 100;
-      var recv = Math.round((amt - fee) * 100) / 100;
+      var fee = roundMoney(amt * pct / 100 + flat);
+      var recv = roundMoney(amt - fee);
       card.querySelector('.f-send').textContent = fmt(amt);
       card.querySelector('.f-fee').textContent = fmt(fee);
       card.querySelector('.f-recv').textContent = fmt(recv);
