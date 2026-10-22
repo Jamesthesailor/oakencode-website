@@ -146,6 +146,7 @@ section.block.lab h2 { color: var(--muted); font-size: .8rem; }
 .method-card h2 { font-size: 1.2rem; color: var(--gold); }
 .method-card .handle { color: var(--muted); font-size: .95rem; }
 .method-card .handle strong { color: var(--text); }
+.method-card .note { color: var(--muted); font-size: .88rem; }
 .figs { border-top: 1px solid var(--line); padding-top: .7rem; }
 .figs .row { display: flex; justify-content: space-between; padding: .25rem 0; color: var(--muted); }
 .figs .row strong { color: var(--text); }
