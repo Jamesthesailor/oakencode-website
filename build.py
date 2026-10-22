@@ -191,6 +191,10 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
 footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
 footer a { color: var(--gold); }
 .credits { margin-top: .9rem; line-height: 1.55; }
+.lab { color: var(--muted); font-size: .85rem; }
+section.block.lab h2 { color: var(--muted); font-size: .8rem; }
+.lab p { margin: .4rem 0; }
+.lab strong { color: var(--text); }
 """
 
 PLANT_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/plant-care.apk"
@@ -423,8 +427,12 @@ def brand_strip(founder_img, moxie_imgs):
 
 def homepage():
     strip = []
+    lab = []
     for p in PROJECTS:
         if p["name"] == "Pers-int":
+            continue
+        if p["name"] in ("HUMANITIES", "Kindred", "Nocturne"):
+            lab.append(f"<p><strong>{p['name']}</strong> — {p['status'].lower()}. {p['desc']}</p>")
             continue
         badge = f'<span class="badge {p["badge"]}">{p["status"]}</span>' if p["badge"] else f'<span class="badge">{p["status"]}</span>'
         strip.append(f'<div class="card"><h2>{p["name"]}</h2>{badge}<p>{p["desc"]}</p></div>')
@@ -504,6 +512,10 @@ def homepage():
   <h2>Get in touch</h2>
   <p>Questions, feedback, or just want to talk shop? We read everything.<br>
   <a href="mailto:contact@oakencode.com" style="color:var(--gold);">contact@oakencode.com</a></p>
+</section>
+<section class="block lab">
+  <h2>From the lab</h2>
+  {''.join(lab)}
 </section>
 """
 

@@ -127,3 +127,7 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
 footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
 footer a { color: var(--gold); }
 .credits { margin-top: .9rem; line-height: 1.55; }
+.lab { color: var(--muted); font-size: .85rem; }
+section.block.lab h2 { color: var(--muted); font-size: .8rem; }
+.lab p { margin: .4rem 0; }
+.lab strong { color: var(--text); }
