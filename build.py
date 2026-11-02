@@ -858,6 +858,58 @@ h2 { margin-top: 1.5em; font-size: 1.2em; }
 </html>
 """
 
+PET_PRIVACY_HTML = """\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Health Vault by OakenCode — Privacy Policy</title>
+<style>
+body { font-family: -apple-system, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #222; }
+h1 { font-size: 1.8em; }
+h2 { margin-top: 1.5em; font-size: 1.2em; }
+.updated { color: #666; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<h1>Pet Health Vault by OakenCode — Privacy Policy</h1>
+<p class="updated">Last updated: November 2026</p>
+
+<p>Pet Health Vault by OakenCode collects no data.</p>
+
+<h2>Works fully offline</h2>
+<p>The app works fully offline. Your pet profiles, photos, health records, documents, reminders, and logs are stored on your device.</p>
+
+<h2>No account, no ads, no tracking</h2>
+<p>The app asks for no account, shows no ads, and uses no analytics or tracking.</p>
+
+<h2>Your pet's data stays yours</h2>
+<p>Everything you enter — profiles, breeds, allergies, vaccinations, vet visits, medications, weights, feeding, water, and walk logs, diary notes, photos, and vault documents — stays on your device. We cannot see it, and there is no way for us to recover it. A backup export is a file you create and control; the PDF kit and ZIP export generate files on your device, for you to share or print as you choose.</p>
+
+<h2>Links</h2>
+<p>The app contains no links that collect personal information.</p>
+
+<h2>Data deletion</h2>
+<p>There is nothing to delete. No data ever leaves your device, so nothing is stored on our servers. Uninstalling the app removes everything on your device. A backup export is a file you create and control; delete that file to delete the backup.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy: contact@oakencode.com.</p>
+
+<hr>
+<footer style="text-align:center; color:#666; font-size:0.9em; margin-top:2em;">
+  Oakencode — honest software, built by a normal man, for normal people.<br>
+  <a href="mailto:contact@oakencode.com">contact@oakencode.com</a><br>
+  <br>
+  Owner-Developer: Skipper James Bryant<br>
+  Muse-Developer: Miss Moxie Linn<br>
+  Credit: Mr. James Allen<br>
+  Credit: Miss Amy Hwang
+</footer>
+</body>
+</html>
+"""
+
 PRIVACY = "<strong>Privacy first.</strong> No ads, ever. No tracking. No account. Everything stays on your phone."
 
 HEADER = """\
@@ -938,6 +990,11 @@ def build():
     os.makedirs(os.path.join(OUT, "diary-privacy"))
     with open(os.path.join(OUT, "diary-privacy", "index.html"), "w") as f:
         f.write(DIARY_PRIVACY_HTML)
+
+    # Pet Health Vault privacy policy
+    os.makedirs(os.path.join(OUT, "pet-privacy"))
+    with open(os.path.join(OUT, "pet-privacy", "index.html"), "w") as f:
+        f.write(PET_PRIVACY_HTML)
 
     # Support page
     os.makedirs(os.path.join(OUT, "support"))
