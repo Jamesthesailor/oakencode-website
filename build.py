@@ -233,11 +233,11 @@ section.block.lab h2 { color: var(--muted); font-size: .8rem; }
 PLANT_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/plant-care.apk"
 PET_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/pet-health-vault.apk"
 DIARY_APK = "https://github.com/Jamesthesailor/oakencode-website/releases/download/apk-v1.0.0/private-diary.apk"
-PERSINT_TESTER = "https://play.google.com/apps/testing/com.persint.app"
+PERSINT_PLAY = "https://play.google.com/store/apps/details?id=com.persint.app"
 PLAY_NOTE = "Google Play is still reviewing our developer access — download the app here today; the Play version is coming."
 
 APPS = [
-    dict(slug="pers-int", name="Pers-int", status="In closed testing", badge="testing",
+    dict(slug="pers-int", name="Pers-Int", status="Available now", badge="",
          tag="Your personal intelligence app — see what the internet knows about you.",
          icon="pers-int-icon.png", mono=None, hero_img=None,
          desc="Your personal intelligence app — see what the internet knows about you.",
@@ -247,8 +247,8 @@ APPS = [
              "Email and password breach checks",
              "Family dossier — findings for the people you care about, stored only on your phone",
          ],
-         pricing=None,
-         cta=("Become a tester", "https://play.google.com/apps/testing/com.persint.app"),
+         pricing="Free to install — your first 2 photo checks are free. Oakencoins for more: 20/$0.99, 50/$1.99, 150/$4.99, 400/$9.99. No subscription, ever.",
+         cta=("Get it on Google Play", PERSINT_PLAY),
          founder="maestrr-founder.png", strip=["moxie-persint-a.png", "moxie-persint-b.png"]),
     dict(slug="plant-care", name="Plant Care", status="Available now", badge="",
          tag="Your plants, on a schedule.",
@@ -404,7 +404,7 @@ TEASER = ("an all-in-one kitchen companion, a document vault, a receipt "
 
 # ---------------------------------------------------------------- homepage
 PROJECTS = [
-    dict(name="Pers-int", status="In closed testing", badge="testing",
+    dict(name="Pers-Int", status="Available now", badge="",
          desc="Your personal intel app. Scan usernames across 1,000+ sites, check emails against breach databases, and find GPS data hiding in your photos. Family safety, done right.",
          link="/apps/pers-int/"),
     dict(name="Sovereign", status="In development", badge="dev",
@@ -482,7 +482,7 @@ def homepage():
     strip = []
     lab = []
     for p in PROJECTS:
-        if p["name"] == "Pers-int":
+        if p["name"] == "Pers-Int":
             continue
         if p["name"] in ("HUMANITIES", "Kindred", "Nocturne"):
             lab.append(f"<p><strong>{p['name']}</strong> — {p['status'].lower()}. {p['desc']}</p>")
@@ -500,7 +500,7 @@ def homepage():
   <h1>Honest software, built by a normal man, for normal people.</h1>
   <p>No ads. No tracking. No dark patterns. Just tools that do what they say — and three of them are ready to download right now.</p>
   <img class="hero-model" src="/apps/assets/img/moxie-hero.png" alt="Moxie presenting Oakencode">
-  <div class="cta"><a class="btn" href="#apps">Get the apps</a> <a class="btn btn-ghost" href="{PERSINT_TESTER}">Become a Pers-int tester</a></div>
+  <div class="cta"><a class="btn" href="#apps">Get the apps</a> <a class="btn btn-ghost" href="{PERSINT_PLAY}">Get Pers-Int on Google Play</a></div>
 </div>
 <section class="block" id="apps">
   <h2>Available now</h2>
@@ -532,15 +532,15 @@ def homepage():
       "Free for one notebook — unlimited entries, calendar, search, tags, moods, and backup export included; the lock and the encryption are never paywalled. One-time $4.99 Pro unlock in the Play version: multiple notebooks, photo attachments in entries, sealed time-capsule entries that won't open until a date you choose, a print-ready PDF journal book, and a decoy notebook with its own duress PIN.", "Download APK", DIARY_APK, PLAY_NOTE,
       "/apps/assets/img/moxie-diary-a.png", "Moxie presenting Private Diary", flip=True, page_url="/apps/private-diary/")}
 </section>
-{app_section("/apps/assets/img/pers-int-icon.png", "Pers-int", '<span class="badge testing">In closed testing</span>',
+{app_section("/apps/assets/img/pers-int-icon.png", "Pers-Int", '<span class="badge">Available now</span>',
     "Your personal intelligence app — see what the internet knows about you.",
     ["Photo EXIF check: find hidden GPS location data before you share",
      "Username search across 1,000+ sites",
      "Email and password breach checks",
      "Family dossier — findings for the people you care about, stored only on your phone"],
-    None, "Become a tester", PERSINT_TESTER,
-    "In closed testing on Google Play. Join with the Google account on your phone, then install from the Play Store.",
-    "/apps/assets/img/moxie-persint-presenter.png", "Moxie presenting Pers-int", flip=True)}
+    None, "Get it on Google Play", PERSINT_PLAY,
+    "Live on Google Play — free to install.",
+    "/apps/assets/img/moxie-persint-presenter.png", "Moxie presenting Pers-Int", flip=True)}
 <section class="block founder">
   <div class="founders-row">
     <div class="person">
