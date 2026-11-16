@@ -8,6 +8,10 @@ from decimal import Decimal, ROUND_HALF_UP
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site")
 ASSETS_SRC = {
     "/home/hatch/workspace/pers-int-icons/playstore.png": "assets/img/pers-int-icon.png",
+    "/home/hatch/workspace/pers-int-listing-screenshots/01-web-search-builder.jpg": "assets/img/pers-int-shot-builder.jpg",
+    "/home/hatch/workspace/pers-int-listing-screenshots/02-google-results.jpg": "assets/img/pers-int-shot-google.jpg",
+    "/home/hatch/workspace/pers-int-listing-screenshots/03-exif-check.jpg": "assets/img/pers-int-shot-exif.jpg",
+    "/home/hatch/workspace/pers-int-listing-screenshots/04-dossier-12-breaches.jpg": "assets/img/pers-int-shot-dossier.jpg",
     "/home/hatch/workspace/plant-care-assets/plant-care-icon-512.png": "assets/img/plant-care-icon.png",
     "/home/hatch/workspace/plant-care-assets/plant-care-feature-graphic-1024x500.png": "assets/img/plant-care-feature-graphic.png",
     "/home/hatch/workspace/plant-care-assets/plant-care-hero.png": "assets/img/plant-care-hero.png",
@@ -238,14 +242,25 @@ PLAY_NOTE = "Google Play is still reviewing our developer access — download th
 
 APPS = [
     dict(slug="pers-int", name="Pers-Int", status="Available now", badge="",
-         tag="Your personal intelligence app — see what the internet knows about you.",
+         title="Pers-Int: Personal OSINT Tool",
+         meta="Pers-Int is a personal OSINT tool: search your username across 1,000+ sites, check photos for hidden GPS data, and check email and password breaches.",
+         tag="Your personal OSINT tool — check yourself and your family first.",
          icon="pers-int-icon.png", mono=None, hero_img=None,
-         desc="Your personal intelligence app — see what the internet knows about you.",
+         desc="Pers-Int is a personal OSINT tool. OSINT means open-source intelligence: public information, gathered from public places. Pers-Int turns it on yourself, so you can see what the internet already knows about you before anyone else uses it against you. Search your username across more than 1,000 public sites, check a photo for hidden GPS location data before you share it, and check your email and password against known breaches. Your family dossier stays on your phone, and nowhere else.",
+         about=[("What is personal OSINT?",
+                 "OSINT is open-source intelligence — facts gathered from public websites, public records, and public posts. A digital footprint is the trail those facts leave behind: every account, every photo, every breach with your name on it. Pers-Int gathers that trail for one person — you — and shows it to you first, in plain words, with the most reliable results first.")],
          feats=[
-             "Photo EXIF check: find hidden GPS location data before you share",
-             "Username search across 1,000+ sites",
-             "Email and password breach checks",
+             "Username search across 1,000+ public sites — see where your name already shows up, most reliable results first",
+             "Photo EXIF check: find hidden GPS location and device data before you share",
+             "Email breach check: see exactly which known breaches exposed your address",
+             "Password Deep Dive: check a password against known breaches without sending the full password anywhere",
              "Family dossier — findings for the people you care about, stored only on your phone",
+         ],
+         shots=[
+             ("pers-int-shot-builder.jpg", "Build a web search in plain English."),
+             ("pers-int-shot-google.jpg", "See what Google already shows about a name."),
+             ("pers-int-shot-exif.jpg", "A clean photo, checked before sharing."),
+             ("pers-int-shot-dossier.jpg", "Your dossier: 12 breaches, named in plain words."),
          ],
          pricing="Free to install — your first 2 photo checks are free. Oakencoins for more: 20/$0.99, 50/$1.99, 150/$4.99, 400/$9.99. No subscription, ever.",
          cta=("Get it on Google Play", PERSINT_PLAY),
@@ -533,7 +548,7 @@ def homepage():
       "/apps/assets/img/moxie-diary-a.png", "Moxie presenting Private Diary", flip=True, page_url="/apps/private-diary/")}
 </section>
 {app_section("/apps/assets/img/pers-int-icon.png", "Pers-Int", '<span class="badge">Available now</span>',
-    "Your personal intelligence app — see what the internet knows about you.",
+    "Your personal OSINT tool — check yourself and your family first.",
     ["Photo EXIF check: find hidden GPS location data before you share",
      "Username search across 1,000+ sites",
      "Email and password breach checks",
@@ -986,7 +1001,13 @@ FOOTER = """\
   </div>
 </footer>"""
 
-def page(title, body):
+def page(title, body, meta=None):
+    meta_html = ""
+    if meta:
+        meta_html = (f'<meta name="description" content="{meta}">\n'
+                     f'<meta property="og:title" content="{title} — Oakencode">\n'
+                     f'<meta property="og:description" content="{meta}">\n'
+                     f'<meta property="og:type" content="website">\n')
     return f"""\
 <!DOCTYPE html>
 <html lang="en">
@@ -994,7 +1015,7 @@ def page(title, body):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} — Oakencode</title>
-<link rel="stylesheet" href="/apps/assets/css/style.css">
+{meta_html}<link rel="stylesheet" href="/apps/assets/css/style.css">
 </head>
 <body>
 <div class="wrap">
@@ -1108,6 +1129,12 @@ def build():
                 for img, cap in a["shots"]
             )
             shots = f'<section class="block"><h2>Screenshots</h2><div class="shots">{figs}</div></section>'
+        about = ""
+        if a.get("about"):
+            about = "".join(
+                f'<section class="block"><h2>{h}</h2><p>{p}</p></section>'
+                for h, p in a["about"]
+            ) + "\n"
         body = f"""\
 <div class="sub-hero">
   {hero}
@@ -1118,7 +1145,7 @@ def build():
 <section class="block">
   <p>{a['desc']}</p>
 </section>
-<section class="block">
+{about}<section class="block">
   <h2>Features</h2>
   <ul class="feat">{feats}</ul>
 </section>
@@ -1133,7 +1160,7 @@ def build():
         d = os.path.join(OUT, "apps", a["slug"])
         os.makedirs(d)
         with open(os.path.join(d, "index.html"), "w") as f:
-            f.write(page(a["name"], body))
+            f.write(page(a.get("title", a["name"]), body, meta=a.get("meta")))
     build_bible(_here)
     print(f"Built {len(APPS)} subpages + index into {OUT}")
 
