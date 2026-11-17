@@ -26,7 +26,59 @@
   <p>Pers-Int is a personal OSINT tool. OSINT means open-source intelligence: public information, gathered from public places. Pers-Int turns it on yourself, so you can see what the internet already knows about you before anyone else uses it against you. Search your username across more than 1,000 public sites, check a photo for hidden GPS location data before you share it, and check your email and password against known breaches. Your family dossier stays on your phone, and nowhere else.</p>
 </section>
 <section class="block"><h2>What is personal OSINT?</h2><p>OSINT is open-source intelligence — facts gathered from public websites, public records, and public posts. A digital footprint is the trail those facts leave behind: every account, every photo, every breach with your name on it. Pers-Int gathers that trail for one person — you — and shows it to you first, in plain words, with the most reliable results first.</p></section>
-<section class="block">
+<section class="block try-it">
+  <h2>Try it now — check a photo before you share it</h2>
+  <p>Pick a photo from your device. This page reads the hidden data inside it — GPS location, camera, and date — and shows you what it finds. Your photo never leaves your device. The check runs entirely in your browser, and nothing is uploaded or stored.</p>
+  <p><label class="btn" for="teaser-file">Choose a photo</label>
+  <input type="file" id="teaser-file" accept="image/*" hidden></p>
+  <div id="teaser-result" hidden></div>
+  <script src="/apps/assets/js/exif.js"></script>
+  <script>
+  (function () {
+    var input = document.getElementById('teaser-file');
+    var out = document.getElementById('teaser-result');
+    if (!input || !out) return;
+    function toDeg(parts) {
+      return parts[0] + parts[1] / 60 + parts[2] / 3600;
+    }
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      out.hidden = false;
+      out.innerHTML = '<p>Reading the photo…</p>';
+      if (typeof EXIF === 'undefined') {
+        out.innerHTML = '<p>The photo reader did not load. Try again in a moment.</p>';
+        return;
+      }
+      EXIF.getData(file, function () {
+        var lat = EXIF.getTag(this, 'GPSLatitude');
+        var lon = EXIF.getTag(this, 'GPSLongitude');
+        var latRef = EXIF.getTag(this, 'GPSLatitudeRef');
+        var lonRef = EXIF.getTag(this, 'GPSLongitudeRef');
+        var make = EXIF.getTag(this, 'Make');
+        var model = EXIF.getTag(this, 'Model');
+        var when = EXIF.getTag(this, 'DateTimeOriginal') || EXIF.getTag(this, 'DateTime');
+        var html = '';
+        if (lat && lon && lat.length === 3 && lon.length === 3) {
+          var la = toDeg(lat) * (latRef === 'S' ? -1 : 1);
+          var lo = toDeg(lon) * (lonRef === 'W' ? -1 : 1);
+          html += '<p class="try-warn"><strong>GPS found.</strong> This photo knows where it was taken: ' + la.toFixed(6) + ', ' + lo.toFixed(6) + '.</p>';
+          html += '<p><a href="https://maps.google.com/?q=' + la + ',' + lo + '" target="_blank" rel="noopener">See the spot on a map</a>. The link opens only if you tap it.</p>';
+        } else {
+          html += '<p><strong>No GPS data in this photo.</strong> Nothing in it says where it was taken.</p>';
+        }
+        var details = [];
+        if (make) details.push('Camera: ' + make + (model ? ' ' + model : ''));
+        if (when) details.push('Taken: ' + when);
+        if (details.length) html += '<p>' + details.join('<br>') + '</p>';
+        html += '<p>Your photo never left your device. This check ran entirely in your browser.</p>';
+        html += '<p><a class="btn" href="https://play.google.com/store/apps/details?id=com.persint.app">Get Pers-Int on Google Play</a></p>';
+        out.innerHTML = html;
+      });
+    });
+  })();
+  </script>
+</section><section class="block">
   <h2>Features</h2>
   <ul class="feat"><li>Username search across 1,000+ public sites — see where your name already shows up, most reliable results first</li><li>Photo EXIF check: find hidden GPS location and device data before you share</li><li>Email breach check: see exactly which known breaches exposed your address</li><li>Password Deep Dive: check a password against known breaches without sending the full password anywhere</li><li>Family dossier — findings for the people you care about, stored only on your phone</li></ul>
 </section>

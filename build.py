@@ -12,6 +12,7 @@ ASSETS_SRC = {
     "/home/hatch/workspace/pers-int-listing-screenshots/02-google-results.jpg": "assets/img/pers-int-shot-google.jpg",
     "/home/hatch/workspace/pers-int-listing-screenshots/03-exif-check.jpg": "assets/img/pers-int-shot-exif.jpg",
     "/home/hatch/workspace/pers-int-listing-screenshots/04-dossier-12-breaches.jpg": "assets/img/pers-int-shot-dossier.jpg",
+    "/home/hatch/workspace/oakencode-website/assets-src/exif.js": "assets/js/exif.js",
     "/home/hatch/workspace/plant-care-assets/plant-care-icon-512.png": "assets/img/plant-care-icon.png",
     "/home/hatch/workspace/plant-care-assets/plant-care-feature-graphic-1024x500.png": "assets/img/plant-care-feature-graphic.png",
     "/home/hatch/workspace/plant-care-assets/plant-care-hero.png": "assets/img/plant-care-hero.png",
@@ -179,6 +180,9 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
   text-decoration: none;
 }
 .btn:hover { filter: brightness(1.1); }
+.try-it { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem 1.5rem; }
+.try-it .btn { cursor: pointer; }
+.try-warn { color: #ff6b6b; }
 .back { display: inline-block; margin-top: 2.5rem; color: var(--muted); text-decoration: none; }
 .back:hover { color: var(--gold); }
 .hero .hero-model { width: 100%; max-width: 420px; border-radius: 16px; border: 1px solid var(--line); margin: 1.5rem auto; display: block; }
@@ -264,7 +268,60 @@ APPS = [
          ],
          pricing="Free to install — your first 2 photo checks are free. Oakencoins for more: 20/$0.99, 50/$1.99, 150/$4.99, 400/$9.99. No subscription, ever.",
          cta=("Get it on Google Play", PERSINT_PLAY),
-         founder="maestrr-founder.png", strip=["moxie-persint-a.png", "moxie-persint-b.png"]),
+         founder="maestrr-founder.png", strip=["moxie-persint-a.png", "moxie-persint-b.png"],
+         teaser="""<section class="block try-it">
+  <h2>Try it now — check a photo before you share it</h2>
+  <p>Pick a photo from your device. This page reads the hidden data inside it — GPS location, camera, and date — and shows you what it finds. Your photo never leaves your device. The check runs entirely in your browser, and nothing is uploaded or stored.</p>
+  <p><label class="btn" for="teaser-file">Choose a photo</label>
+  <input type="file" id="teaser-file" accept="image/*" hidden></p>
+  <div id="teaser-result" hidden></div>
+  <script src="/apps/assets/js/exif.js"></script>
+  <script>
+  (function () {
+    var input = document.getElementById('teaser-file');
+    var out = document.getElementById('teaser-result');
+    if (!input || !out) return;
+    function toDeg(parts) {
+      return parts[0] + parts[1] / 60 + parts[2] / 3600;
+    }
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      out.hidden = false;
+      out.innerHTML = '<p>Reading the photo…</p>';
+      if (typeof EXIF === 'undefined') {
+        out.innerHTML = '<p>The photo reader did not load. Try again in a moment.</p>';
+        return;
+      }
+      EXIF.getData(file, function () {
+        var lat = EXIF.getTag(this, 'GPSLatitude');
+        var lon = EXIF.getTag(this, 'GPSLongitude');
+        var latRef = EXIF.getTag(this, 'GPSLatitudeRef');
+        var lonRef = EXIF.getTag(this, 'GPSLongitudeRef');
+        var make = EXIF.getTag(this, 'Make');
+        var model = EXIF.getTag(this, 'Model');
+        var when = EXIF.getTag(this, 'DateTimeOriginal') || EXIF.getTag(this, 'DateTime');
+        var html = '';
+        if (lat && lon && lat.length === 3 && lon.length === 3) {
+          var la = toDeg(lat) * (latRef === 'S' ? -1 : 1);
+          var lo = toDeg(lon) * (lonRef === 'W' ? -1 : 1);
+          html += '<p class="try-warn"><strong>GPS found.</strong> This photo knows where it was taken: ' + la.toFixed(6) + ', ' + lo.toFixed(6) + '.</p>';
+          html += '<p><a href="https://maps.google.com/?q=' + la + ',' + lo + '" target="_blank" rel="noopener">See the spot on a map</a>. The link opens only if you tap it.</p>';
+        } else {
+          html += '<p><strong>No GPS data in this photo.</strong> Nothing in it says where it was taken.</p>';
+        }
+        var details = [];
+        if (make) details.push('Camera: ' + make + (model ? ' ' + model : ''));
+        if (when) details.push('Taken: ' + when);
+        if (details.length) html += '<p>' + details.join('<br>') + '</p>';
+        html += '<p>Your photo never left your device. This check ran entirely in your browser.</p>';
+        html += '<p><a class="btn" href="https://play.google.com/store/apps/details?id=com.persint.app">Get Pers-Int on Google Play</a></p>';
+        out.innerHTML = html;
+      });
+    });
+  })();
+  </script>
+</section>"""),
     dict(slug="plant-care", name="Plant Care", status="Available now", badge="",
          tag="Your plants, on a schedule.",
          icon="plant-care-icon.png", mono=None, hero_img="plant-care-feature-graphic.png",
@@ -1037,6 +1094,7 @@ def build():
         shutil.rmtree(OUT)
     os.makedirs(os.path.join(OUT, "apps", "assets", "css"))
     os.makedirs(os.path.join(OUT, "apps", "assets", "img"))
+    os.makedirs(os.path.join(OUT, "apps", "assets", "js"))
     os.makedirs(os.path.join(OUT, "assets", "img"))
     with open(os.path.join(OUT, "apps", "assets", "css", "style.css"), "w") as f:
         f.write(CSS)
@@ -1135,6 +1193,7 @@ def build():
                 f'<section class="block"><h2>{h}</h2><p>{p}</p></section>'
                 for h, p in a["about"]
             ) + "\n"
+        teaser = a.get("teaser", "")
         body = f"""\
 <div class="sub-hero">
   {hero}
@@ -1145,7 +1204,7 @@ def build():
 <section class="block">
   <p>{a['desc']}</p>
 </section>
-{about}<section class="block">
+{about}{teaser}<section class="block">
   <h2>Features</h2>
   <ul class="feat">{feats}</ul>
 </section>

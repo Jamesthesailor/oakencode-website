@@ -101,6 +101,9 @@ ul.feat li::before { content: "◆"; color: var(--gold-dim); position: absolute;
   text-decoration: none;
 }
 .btn:hover { filter: brightness(1.1); }
+.try-it { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem 1.5rem; }
+.try-it .btn { cursor: pointer; }
+.try-warn { color: #ff6b6b; }
 .back { display: inline-block; margin-top: 2.5rem; color: var(--muted); text-decoration: none; }
 .back:hover { color: var(--gold); }
 .hero .hero-model { width: 100%; max-width: 420px; border-radius: 16px; border: 1px solid var(--line); margin: 1.5rem auto; display: block; }
