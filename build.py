@@ -480,7 +480,7 @@ TEASER = ("an all-in-one kitchen companion, a document vault, a receipt "
 # ---------------------------------------------------------------- homepage
 PROJECTS = [
     dict(name="Pers-Int", status="Available now", badge="",
-         desc="Your personal intel app. Scan usernames across 1,000+ sites, check emails against breach databases, and find GPS data hiding in your photos. Family safety, done right.",
+         desc="Your personal intel app. Scan usernames across 5,000 sites, check emails against breach databases, and find GPS data hiding in your photos. Family safety, done right.",
          link="/apps/pers-int/"),
     dict(name="Sovereign", status="In development", badge="dev",
          desc="An agentic investigation platform — the next evolution of field-ready OSINT tooling. Built phone-first, for professionals who work where the case takes them.",
@@ -610,7 +610,7 @@ def homepage():
 {app_section("/apps/assets/img/pers-int-icon.png", "Pers-Int", '<span class="badge">Available now</span>',
     "Your personal OSINT tool — check yourself and your family first.",
     ["Photo EXIF check: find hidden GPS location data before you share",
-     "Username search across 1,000+ sites",
+     "Username search across 5,000 sites",
      "Email and password breach checks",
      "Family dossier — findings for the people you care about, stored only on your phone"],
     None, "Get it on Google Play", PERSINT_PLAY,
