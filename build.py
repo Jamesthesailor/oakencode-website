@@ -261,6 +261,7 @@ APPS = [
              "Family dossier — findings for the people you care about, stored only on your phone",
              "Data broker removal helper: guided opt-out steps for 23 brokers, with a checklist to track your progress — free",
              "Device scan: screen lock, encryption, security patch age, and which apps hold sensitive access — free",
+            "Link and QR checker: check a link or QR code before you open it, and see where it really leads — free",
              "Mega scan: one username across 5,000 live sites — 200 tokens, about 40–60 minutes",
          ],
          shots=[
@@ -269,7 +270,7 @@ APPS = [
              ("pers-int-shot-exif.jpg", "A clean photo, checked before sharing."),
              ("pers-int-shot-dossier.jpg", "Your dossier: 12 breaches, named in plain words."),
          ],
-         pricing="Free to install — your first 2 photo checks are free. Oakencoins for more: 20/$0.99, 50/$1.99, 150/$4.99, 400/$9.99. No subscription, ever. Each extra check costs: extra username or email 5, photo EXIF check 5, password Deep Dive 10, full 500-site username search 25, extended 1,000-site search 50, 20-photo batch 50, Mega 5,000-site scan 200, NSFW add-on 15.",
+         pricing="Free to install — your first 2 photo checks are free. Oakencoins for more: 20/$0.99, 50/$1.99, 200/$4.99, 500/$9.99. No subscription, ever. Oakencoins per extra check: extra username or email 5, photo EXIF check 5, password Deep Dive 10, full 500-site username search 25, extended 1,000-site search 50, 20-photo batch 50, Mega 5,000-site scan 200, NSFW add-on 15.",
          cta=("Get it on Google Play", PERSINT_PLAY),
          founder="maestrr-founder.png", strip=["moxie-persint-a.png", "moxie-persint-b.png"],
          teaser="""<section class="block try-it">
@@ -786,7 +787,7 @@ h2 { margin-top: 1.5em; font-size: 1.2em; }
 </head>
 <body>
 <h1>Pers-Int Privacy Policy</h1>
-<p class="updated">Last updated: October 2026</p>
+<p class="updated">Last updated: November 2026</p>
 
 <p>We collect almost nothing. Here's exactly what happens with your data:</p>
 
@@ -796,8 +797,11 @@ h2 { margin-top: 1.5em; font-size: 1.2em; }
 <h2>Search queries</h2>
 <p>When you run a username or email check, your device contacts public websites directly. We do not route these queries through our servers and we do not log them.</p>
 
-<h2>Tokens</h2>
-<p>Token purchases are handled by Google Play Billing. We don't see or store your payment information.</p>
+<h2>Link and QR checks</h2>
+<p>When you check a link or QR code, your device sends header-only requests directly to the websites in the redirect chain, and sends only the bare domain to the public domain registration record (RDAP) to look up its age. We do not route these requests through our servers and we do not log them.</p>
+
+<h2>Oakencoins</h2>
+<p>Oakencoin purchases are handled by Google Play Billing. We don't see or store your payment information.</p>
 
 <h2>No tracking</h2>
 <p>No analytics SDKs. No advertising SDKs. No crash reporting that includes personal data. No ads of any kind — ever.</p>
