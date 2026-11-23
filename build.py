@@ -247,18 +247,21 @@ PLAY_NOTE = "Google Play is still reviewing our developer access — download th
 APPS = [
     dict(slug="pers-int", name="Pers-Int", status="Available now", badge="",
          title="Pers-Int: Personal OSINT Tool",
-         meta="Pers-Int is a personal OSINT tool: search your username across 1,000+ sites, check photos for hidden GPS data, and check email and password breaches.",
+         meta="Pers-Int is a personal OSINT tool: search your username across 5,000 sites, check photos for hidden GPS data, and check email and password breaches.",
          tag="Your personal OSINT tool — check yourself and your family first.",
          icon="pers-int-icon.png", mono=None, hero_img=None,
-         desc="Pers-Int is a personal OSINT tool. OSINT means open-source intelligence: public information, gathered from public places. Pers-Int turns it on yourself, so you can see what the internet already knows about you before anyone else uses it against you. Search your username across more than 1,000 public sites, check a photo for hidden GPS location data before you share it, and check your email and password against known breaches. Your family dossier stays on your phone, and nowhere else.",
+         desc="Pers-Int is a personal OSINT tool. OSINT means open-source intelligence: public information, gathered from public places. Pers-Int turns it on yourself, so you can see what the internet already knows about you before anyone else uses it against you. Search your username across 5,000 public sites, check a photo for hidden GPS location data before you share it, and check your email and password against known breaches. Your family dossier stays on your phone, and nowhere else.",
          about=[("What is personal OSINT?",
                  "OSINT is open-source intelligence — facts gathered from public websites, public records, and public posts. A digital footprint is the trail those facts leave behind: every account, every photo, every breach with your name on it. Pers-Int gathers that trail for one person — you — and shows it to you first, in plain words, with the most reliable results first.")],
          feats=[
-             "Username search across 1,000+ public sites — see where your name already shows up, most reliable results first",
+             "Username search across 5,000 public sites — see where your name already shows up, most reliable results first",
              "Photo EXIF check: find hidden GPS location and device data before you share",
              "Email breach check: see exactly which known breaches exposed your address",
              "Password Deep Dive: check a password against known breaches without sending the full password anywhere",
              "Family dossier — findings for the people you care about, stored only on your phone",
+             "Data broker removal helper: guided opt-out steps for 23 brokers, with a checklist to track your progress — free",
+             "Device scan: screen lock, encryption, security patch age, and which apps hold sensitive access — free",
+             "Mega scan: one username across 5,000 live sites — 200 tokens, about 40–60 minutes",
          ],
          shots=[
              ("pers-int-shot-builder.jpg", "Build a web search in plain English."),
@@ -266,7 +269,7 @@ APPS = [
              ("pers-int-shot-exif.jpg", "A clean photo, checked before sharing."),
              ("pers-int-shot-dossier.jpg", "Your dossier: 12 breaches, named in plain words."),
          ],
-         pricing="Free to install — your first 2 photo checks are free. Oakencoins for more: 20/$0.99, 50/$1.99, 150/$4.99, 400/$9.99. No subscription, ever.",
+         pricing="Free to install — your first 2 photo checks are free. Oakencoins for more: 20/$0.99, 50/$1.99, 150/$4.99, 400/$9.99. No subscription, ever. Each extra check costs: extra username or email 5, photo EXIF check 5, password Deep Dive 10, full 500-site username search 25, extended 1,000-site search 50, 20-photo batch 50, Mega 5,000-site scan 200, NSFW add-on 15.",
          cta=("Get it on Google Play", PERSINT_PLAY),
          founder="maestrr-founder.png", strip=["moxie-persint-a.png", "moxie-persint-b.png"],
          teaser="""<section class="block try-it">
