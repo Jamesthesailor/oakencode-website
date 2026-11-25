@@ -26,6 +26,9 @@ h2 { margin-top: 1.5em; font-size: 1.2em; }
 <h2>Link and QR checks</h2>
 <p>When you check a link or QR code, your device sends header-only requests directly to the websites in the redirect chain, and sends only the bare domain to the public domain registration record (RDAP) to look up its age. We do not route these requests through our servers and we do not log them.</p>
 
+<h2>Phone checks</h2>
+<p>When you run a carrier lookup on a phone number, the number is sent to Twilio, through our relay, only to run the lookup. Twilio returns the carrier name and the line type (mobile, landline, or VoIP) and nothing else. We do not log the number and we do not store it. The free number validation runs entirely on your device and sends nothing anywhere.</p>
+
 <h2>Oakencoins</h2>
 <p>Oakencoin purchases are handled by Google Play Billing. We don't see or store your payment information.</p>
 
